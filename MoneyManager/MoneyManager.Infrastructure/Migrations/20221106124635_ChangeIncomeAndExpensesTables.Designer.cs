@@ -9,11 +9,11 @@ using MoneyManager.Infrastructure.Data;
 
 #nullable disable
 
-namespace MoneyManager.Data.Migrations
+namespace MoneyManager.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221105181533_AddTables")]
-    partial class AddTables
+    [Migration("20221106124635_ChangeIncomeAndExpensesTables")]
+    partial class ChangeIncomeAndExpensesTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -171,13 +171,6 @@ namespace MoneyManager.Data.Migrations
                         .HasPrecision(18, 2)
                         .HasColumnType("money");
 
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Icon")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -185,9 +178,27 @@ namespace MoneyManager.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationUserId");
-
                     b.ToTable("Accounts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("8c6feda1-c95c-4ba5-94a5-8402a483541b"),
+                            Amount = 420.3m,
+                            Name = "Wallet"
+                        },
+                        new
+                        {
+                            Id = new Guid("600450f8-17e8-498a-bd99-0ad81c8b3085"),
+                            Amount = 1420m,
+                            Name = "Debit card"
+                        },
+                        new
+                        {
+                            Id = new Guid("d0345a9a-b761-4522-88a8-560cbe3b1c52"),
+                            Amount = 30.56m,
+                            Name = "Piggy Bank"
+                        });
                 });
 
             modelBuilder.Entity("MoneyManager.Infrastructure.Data.Entities.ApplicationUser", b =>
@@ -263,6 +274,44 @@ namespace MoneyManager.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "55098375-47e8-4589-816e-268d714f568b",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "96c2e1c2-c468-4df1-97df-245c40a33710",
+                            Email = "petrov@mail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Pesho",
+                            LastName = "Petrov",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "PETROV@MAIL.COM",
+                            NormalizedUserName = "PESHO",
+                            PasswordHash = "AQAAAAEAACcQAAAAEM09SspBsZEGt3ZDfuxFEf6RH6/yVQz5bbct4L5d5LN7rhEt3/CBn6G1170HA2u9ag==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "5c7badc4-a3e3-48e1-86c1-200aa166faf6",
+                            TwoFactorEnabled = false,
+                            UserName = "pesho"
+                        },
+                        new
+                        {
+                            Id = "ce00c486-6a17-41da-804f-40a576cd020d",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "84f6c7fb-5199-4333-8269-17c49660195f",
+                            Email = "ivanov@mail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Ivan",
+                            LastName = "Ivanov",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "IVANOV@MAIL.COM",
+                            NormalizedUserName = "VANKATA",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFx5dFQ19k2mz9DopbscUndGxYV0KhwnkuZsnGi/NjhLBZHCON4+RJpLrh1U5z39nA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "e5a68e6e-7023-43bf-a54f-5dcced35ae7e",
+                            TwoFactorEnabled = false,
+                            UserName = "vankata"
+                        });
                 });
 
             modelBuilder.Entity("MoneyManager.Infrastructure.Data.Entities.CategoryExpense", b =>
@@ -270,10 +319,6 @@ namespace MoneyManager.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Icon")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -283,6 +328,23 @@ namespace MoneyManager.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("CategoryExpenses");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("2751e7ab-b8ea-4c50-b2a4-9bf7a600ce0d"),
+                            Name = "Food"
+                        },
+                        new
+                        {
+                            Id = new Guid("41e3fe82-74af-4c51-bed3-6026a559873a"),
+                            Name = "Transportation"
+                        },
+                        new
+                        {
+                            Id = new Guid("8cd4d9ba-f2b7-4fca-811e-2e83de454910"),
+                            Name = "Gift"
+                        });
                 });
 
             modelBuilder.Entity("MoneyManager.Infrastructure.Data.Entities.CategoryIncome", b =>
@@ -290,10 +352,6 @@ namespace MoneyManager.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Icon")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -303,6 +361,23 @@ namespace MoneyManager.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("CategoryIncomes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("c6920210-3413-42e4-854c-cadd35517bbc"),
+                            Name = "Salary"
+                        },
+                        new
+                        {
+                            Id = new Guid("11a9d1a1-7153-4609-96bb-abc83181ab30"),
+                            Name = "Vouchers"
+                        },
+                        new
+                        {
+                            Id = new Guid("01eeec85-4e1c-4838-ad16-b113c7afd03d"),
+                            Name = "Advance payment"
+                        });
                 });
 
             modelBuilder.Entity("MoneyManager.Infrastructure.Data.Entities.Expense", b =>
@@ -319,13 +394,13 @@ namespace MoneyManager.Data.Migrations
                         .HasColumnType("money");
 
                     b.Property<string>("ApplicationUserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<Guid>("CategoryId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("Date")
-                        .IsRequired()
+                    b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
@@ -343,6 +418,18 @@ namespace MoneyManager.Data.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Expenses");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("a3dc14db-1461-4543-a291-5b0efb43db69"),
+                            AccountId = new Guid("8c6feda1-c95c-4ba5-94a5-8402a483541b"),
+                            Amount = 50.2m,
+                            ApplicationUserId = "55098375-47e8-4589-816e-268d714f568b",
+                            CategoryId = new Guid("8cd4d9ba-f2b7-4fca-811e-2e83de454910"),
+                            Date = new DateTime(2022, 11, 8, 14, 46, 35, 164, DateTimeKind.Local).AddTicks(9089),
+                            Description = "Gift"
+                        });
                 });
 
             modelBuilder.Entity("MoneyManager.Infrastructure.Data.Entities.Income", b =>
@@ -359,13 +446,13 @@ namespace MoneyManager.Data.Migrations
                         .HasColumnType("money");
 
                     b.Property<string>("ApplicationUserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<Guid>("CategoryId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("Date")
-                        .IsRequired()
+                    b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
@@ -383,6 +470,18 @@ namespace MoneyManager.Data.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Incomes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("550dce86-3221-4f10-85c8-f563ce873798"),
+                            AccountId = new Guid("d0345a9a-b761-4522-88a8-560cbe3b1c52"),
+                            Amount = 120.3m,
+                            ApplicationUserId = "ce00c486-6a17-41da-804f-40a576cd020d",
+                            CategoryId = new Guid("11a9d1a1-7153-4609-96bb-abc83181ab30"),
+                            Date = new DateTime(2022, 11, 13, 14, 46, 35, 164, DateTimeKind.Local).AddTicks(8945),
+                            Description = "Money gift for my birthday"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -436,13 +535,6 @@ namespace MoneyManager.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MoneyManager.Infrastructure.Data.Entities.Account", b =>
-                {
-                    b.HasOne("MoneyManager.Infrastructure.Data.Entities.ApplicationUser", null)
-                        .WithMany("Accounts")
-                        .HasForeignKey("ApplicationUserId");
-                });
-
             modelBuilder.Entity("MoneyManager.Infrastructure.Data.Entities.Expense", b =>
                 {
                     b.HasOne("MoneyManager.Infrastructure.Data.Entities.Account", "Account")
@@ -451,9 +543,11 @@ namespace MoneyManager.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MoneyManager.Infrastructure.Data.Entities.ApplicationUser", null)
-                        .WithMany("Expenses")
-                        .HasForeignKey("ApplicationUserId");
+                    b.HasOne("MoneyManager.Infrastructure.Data.Entities.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("MoneyManager.Infrastructure.Data.Entities.CategoryExpense", "Category")
                         .WithMany()
@@ -462,6 +556,8 @@ namespace MoneyManager.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Account");
+
+                    b.Navigation("ApplicationUser");
 
                     b.Navigation("Category");
                 });
@@ -474,9 +570,11 @@ namespace MoneyManager.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MoneyManager.Infrastructure.Data.Entities.ApplicationUser", null)
-                        .WithMany("Incomes")
-                        .HasForeignKey("ApplicationUserId");
+                    b.HasOne("MoneyManager.Infrastructure.Data.Entities.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("MoneyManager.Infrastructure.Data.Entities.CategoryIncome", "Category")
                         .WithMany()
@@ -486,16 +584,9 @@ namespace MoneyManager.Data.Migrations
 
                     b.Navigation("Account");
 
+                    b.Navigation("ApplicationUser");
+
                     b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("MoneyManager.Infrastructure.Data.Entities.ApplicationUser", b =>
-                {
-                    b.Navigation("Accounts");
-
-                    b.Navigation("Expenses");
-
-                    b.Navigation("Incomes");
                 });
 #pragma warning restore 612, 618
         }

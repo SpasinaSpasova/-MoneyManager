@@ -1,0 +1,51 @@
+﻿@model IEnumerable<IncomeViewModel>
+
+@{
+    ViewBag.Title = "All Incomes";
+}
+
+<div class="nav-link bg-white">
+    <h2 class="text-center">@ViewBag.Title</h2>
+    <hr />
+</div>
+
+
+<div class="text-center row">
+<form class="input-group-sm" asp-controller="Income" asp-action="Add">
+        <input type="submit" value="Add New Income" class="w-100 fs-6 btn btn-primary btn-block mb-3 p-2" />
+</form>
+</div>
+
+<div class="text-center row">
+    @foreach (var income in Model)
+    {
+        <div class="card col-4" style="width: 20rem; ">
+            @if (@income.Photo != null)
+            {
+                <img class="card-img-top" style="width: 18rem;"
+             src="data:image;base64,@System.Convert.ToBase64String(@income.Photo)" alt="Income Image">
+            }
+            else
+            {
+                <img class="card-img-top" style="width: 18rem;"
+             src="@income.Photo" alt="Income Image">
+            }
+
+            <div class="card-body">
+                <h5 class="card-title mt-1">@income.Category</h5>
+                <p class="mb-0">Amount: @String.Format("{0:N2}",@income.Amount) lv.</p>
+                <p class="mb-0">Account: @income.Account</p>
+                <p class="mb-0">Date: @income?.Date?.ToShortDateString()</p>
+                <p class="mb-0">Description: @income.Description</p>
+            </div>
+
+            <form class="input-group-sm" asp-controller="Income" asp-action="Edit" asp-route-incomeId="@income.Id">
+                <input type="submit" value="Edit" class="fs-6 btn btn-success mb-3 p-2" />
+            </form>
+            <form class="input-group-sm" asp-controller="Income" asp-action="Delete" asp-route-incomeId="@income.Id">
+                <input type="submit" value="Delete" class="fs-6 btn btn-success mb-3 p-2" />
+            </form>
+
+        </div>
+    }
+</div>

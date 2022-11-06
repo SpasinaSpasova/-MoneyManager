@@ -16,8 +16,5 @@ namespace MoneyManager.Infrastructure.Data.Entities
         [Required]
         [StringLength(CategoryNameMaxLength)]
         public string Name { get; set; } = null!;
-
-        [Required]
-        public string Icon { get; set; } = null!;
     }
 }

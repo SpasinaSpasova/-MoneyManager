@@ -23,7 +23,7 @@ namespace MoneyManager.Infrastructure.Data.Entities
         public string? Description { get; set; }
 
         [Required]
-        public DateTime? Date { get; set; }
+        public DateTime Date { get; set; }
 
         public byte[]? Photo { get; set; }
 
@@ -40,5 +40,12 @@ namespace MoneyManager.Infrastructure.Data.Entities
         [Required]
         [ForeignKey(nameof(AccountId))]
         public Account Account { get; set; } = null!;
+
+        [Required]
+        public string ApplicationUserId { get; set; } = null!;
+
+        [Required]
+        [ForeignKey(nameof(ApplicationUserId))]
+        public ApplicationUser ApplicationUser { get; set; } = null!;
     }
 }

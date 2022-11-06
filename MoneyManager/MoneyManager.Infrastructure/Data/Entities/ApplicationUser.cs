@@ -18,11 +18,5 @@ namespace MoneyManager.Infrastructure.Data.Entities
         [Required]
         [MaxLength(ApplicationUserLastNameMaxLength)]
         public string LastName { get; init; } = null!;
-
-        public List<Income> Incomes { get; set; } = new List<Income>();
-
-        public List<Expense> Expenses { get; set; } = new List<Expense>();
-        
-        public List<Account> Accounts { get; set; } = new List<Account>();
     }
 }

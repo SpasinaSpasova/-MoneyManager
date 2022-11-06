@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MoneyManager.Infrastructure.Data;
 
@@ -11,9 +12,10 @@ using MoneyManager.Infrastructure.Data;
 namespace MoneyManager.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221106112810_AddTablesAndSeedDB")]
+    partial class AddTablesAndSeedDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -278,7 +280,7 @@ namespace MoneyManager.Infrastructure.Migrations
                         {
                             Id = "55098375-47e8-4589-816e-268d714f568b",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "bbef49f5-2698-4f61-88ce-ea30e206ab89",
+                            ConcurrencyStamp = "7faa34de-9eef-4411-b050-f8e1aba1a52f",
                             Email = "petrov@mail.com",
                             EmailConfirmed = false,
                             FirstName = "Pesho",
@@ -286,9 +288,9 @@ namespace MoneyManager.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "PETROV@MAIL.COM",
                             NormalizedUserName = "PESHO",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBdyz8RcRgptxffZuM6e+xYh77qPEegs2hP//1yu/yKtKNYhjubpe/6f3tmdss2QDQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEN7rFcyNznAA/5Ux/CBGYLCrkdZ06OPDixkXg5d4Un8cfXm0hjUDZ+hacDxK2kTBFA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5a563bb6-f874-4c97-8c76-017dba875d5c",
+                            SecurityStamp = "e7c9ac44-e28d-4a5f-aa2c-6e984a5c91e8",
                             TwoFactorEnabled = false,
                             UserName = "pesho"
                         },
@@ -296,7 +298,7 @@ namespace MoneyManager.Infrastructure.Migrations
                         {
                             Id = "ce00c486-6a17-41da-804f-40a576cd020d",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c8d4ce3a-070b-4199-b237-94dea509d77d",
+                            ConcurrencyStamp = "6805f927-9c58-415a-87a7-2e3e0ea0a4ba",
                             Email = "ivanov@mail.com",
                             EmailConfirmed = false,
                             FirstName = "Ivan",
@@ -304,9 +306,9 @@ namespace MoneyManager.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "IVANOV@MAIL.COM",
                             NormalizedUserName = "VANKATA",
-                            PasswordHash = "AQAAAAEAACcQAAAAEALJtLifaGNxMiiJMqL5yH+kUDOqFBNwRv0BIJVqy4+tfTIDZolpt4969q70Nk1W5g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEItEQNte3JqH65WphTr6qG0H1IvGKE3vhX0ernKY1cZMfX2Rr0iNO8dOcwlbmefb5Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "4a88e131-7f76-4b55-88eb-f49d7feb6b2d",
+                            SecurityStamp = "a5af44aa-f3e3-45b3-ab63-a0f94e327587",
                             TwoFactorEnabled = false,
                             UserName = "vankata"
                         });
@@ -398,7 +400,8 @@ namespace MoneyManager.Infrastructure.Migrations
                     b.Property<Guid>("CategoryId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("Date")
+                    b.Property<DateTime?>("Date")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
@@ -425,7 +428,7 @@ namespace MoneyManager.Infrastructure.Migrations
                             Amount = 50.2m,
                             ApplicationUserId = "55098375-47e8-4589-816e-268d714f568b",
                             CategoryId = new Guid("8cd4d9ba-f2b7-4fca-811e-2e83de454910"),
-                            Date = new DateTime(2022, 11, 8, 15, 17, 55, 621, DateTimeKind.Local).AddTicks(6047),
+                            Date = new DateTime(2022, 11, 8, 13, 28, 9, 630, DateTimeKind.Local).AddTicks(4915),
                             Description = "Gift"
                         });
                 });
@@ -450,7 +453,8 @@ namespace MoneyManager.Infrastructure.Migrations
                     b.Property<Guid>("CategoryId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("Date")
+                    b.Property<DateTime?>("Date")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
@@ -477,7 +481,7 @@ namespace MoneyManager.Infrastructure.Migrations
                             Amount = 120.3m,
                             ApplicationUserId = "ce00c486-6a17-41da-804f-40a576cd020d",
                             CategoryId = new Guid("11a9d1a1-7153-4609-96bb-abc83181ab30"),
-                            Date = new DateTime(2022, 11, 13, 15, 17, 55, 621, DateTimeKind.Local).AddTicks(5887),
+                            Date = new DateTime(2022, 11, 13, 13, 28, 9, 630, DateTimeKind.Local).AddTicks(4755),
                             Description = "Money gift for my birthday"
                         });
                 });

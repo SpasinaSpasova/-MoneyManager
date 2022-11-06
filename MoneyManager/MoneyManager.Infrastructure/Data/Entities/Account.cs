@@ -21,9 +21,6 @@ namespace MoneyManager.Infrastructure.Data.Entities
         public string Name { get; set; } = null!;
 
         [Required]
-        public string Icon { get; set; } = null!;
-
-        [Required]
         [Column(TypeName = "money")]
         [Precision(18, 2)]
         public decimal Amount { get; set; }
