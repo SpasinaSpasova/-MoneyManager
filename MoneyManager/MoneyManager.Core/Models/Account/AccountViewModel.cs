@@ -2,16 +2,16 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static MoneyManager.Infrastructure.Data.DataConstants.Account;
 
-namespace MoneyManager.Infrastructure.Data.Entities
+namespace MoneyManager.Core.Models.Account
 {
-    public class Account
+    public class AccountViewModel
     {
         [Key]
         public Guid Id { get; set; }
@@ -24,11 +24,8 @@ namespace MoneyManager.Infrastructure.Data.Entities
         [Column(TypeName = "money")]
         [Precision(18, 2)]
         public decimal Amount { get; set; }
-        [Required]
-        public string ApplicationUserId { get; set; } = null!;
 
         [Required]
-        [ForeignKey(nameof(ApplicationUserId))]
-        public ApplicationUser ApplicationUser { get; set; } = null!;
+        public string ApplicationUserId { get; set; } = null!;
     }
 }

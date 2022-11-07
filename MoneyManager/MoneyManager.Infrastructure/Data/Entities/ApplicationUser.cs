@@ -18,5 +18,6 @@ namespace MoneyManager.Infrastructure.Data.Entities
         [Required]
         [MaxLength(ApplicationUserLastNameMaxLength)]
         public string LastName { get; init; } = null!;
+
     }
 }

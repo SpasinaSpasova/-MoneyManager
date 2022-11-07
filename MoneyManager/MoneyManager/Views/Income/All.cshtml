@@ -6,14 +6,14 @@
 
 <div class="nav-link bg-white">
     <h2 class="text-center">@ViewBag.Title</h2>
-    <hr />
 </div>
 
 
 <div class="text-center row">
-<form class="input-group-sm" asp-controller="Income" asp-action="Add">
+    <hr />
+    <form class="input-group-sm" asp-controller="Income" asp-action="Add">
         <input type="submit" value="Add New Income" class="w-100 fs-6 btn btn-primary btn-block mb-3 p-2" />
-</form>
+    </form>
 </div>
 
 <div class="text-center row">
@@ -36,7 +36,10 @@
                 <p class="mb-0">Amount: @String.Format("{0:N2}",@income.Amount) lv.</p>
                 <p class="mb-0">Account: @income.Account</p>
                 <p class="mb-0">Date: @income?.Date?.ToShortDateString()</p>
-                <p class="mb-0">Description: @income.Description</p>
+                @if (income.Description != null)
+                {
+                    <p class="mb-0">Description: @income.Description</p>
+                }
             </div>
 
             <form class="input-group-sm" asp-controller="Income" asp-action="Edit" asp-route-incomeId="@income.Id">

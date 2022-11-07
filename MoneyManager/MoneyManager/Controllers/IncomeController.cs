@@ -4,6 +4,7 @@ using MoneyManager.Core.Contracts;
 using MoneyManager.Core.Services;
 using MoneyManager.Infrastructure.Data;
 using MoneyManager.Infrastructure.Data.Entities;
+using System.Security.Claims;
 
 namespace MoneyManager.Controllers
 {
@@ -20,10 +21,32 @@ namespace MoneyManager.Controllers
         [HttpGet]
         public async Task<IActionResult> All()
         {
-            var model = await incomeService.GetAllAsync();
 
-            return View(model);
+            var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (currentUserId != null)
+            {
+                var model = await incomeService.GetAllByUserIdAsync(currentUserId);
+
+                return View(model);
+            }
+
+
+            return View();
         }
-      
+
+        [HttpGet]
+        public async Task<IActionResult> Add()
+        {
+            var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            //var model = new AddIncomeViewModel()
+            //{
+            // Categories = await incomeService.GetCategoriesIncomeAsync();
+            //Accounts = await incomeService.GetAccountsByIdAsync(string currentUserId);
+            //}
+            return View(/*model*/);
+        }
     }
 }
+

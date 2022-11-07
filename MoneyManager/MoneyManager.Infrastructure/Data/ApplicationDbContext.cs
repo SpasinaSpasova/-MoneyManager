@@ -22,7 +22,6 @@ namespace MoneyManager.Infrastructure.Data
             builder.ApplyConfiguration(new ExpenseConfiguration());
             builder.ApplyConfiguration(new ApplicationUserConfiguration());
 
-
             base.OnModelCreating(builder);
         }
         public DbSet<CategoryIncome> CategoryIncomes { get; set; } = null!;
