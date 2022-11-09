@@ -26,6 +26,6 @@ namespace MoneyManager.Core.Models.Income
         public string Category { get; set; } = null!;
 
         public string Account { get; set; } = null!;
-        public string AccountUserId { get; set; } = null!;
+        public string ApplicationUserId { get; set; } = null!;
     }
 }

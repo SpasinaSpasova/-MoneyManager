@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.SqlClient.Server;
 using Microsoft.EntityFrameworkCore;
 using MoneyManager.Core.Contracts;
+using MoneyManager.Core.Models.Account;
 using MoneyManager.Core.Models.Income;
 using MoneyManager.Infrastructure.Data.Entities;
 using System;
@@ -21,7 +22,39 @@ namespace MoneyManager.Core.Services
         {
             repo = _repo;
         }
-        public async Task<IEnumerable<IncomeViewModel>> GetAllByUserIdAsync(string userId)
+
+        public async Task AddIncomeAsync(AddIncomeViewModel model,string userId)
+        {
+            var entity = new Income()
+            {
+                Amount = model.Amount,
+                Description = model.Description,
+                Date = model.Date,
+                Photo = model.Photo,
+                ApplicationUserId = userId,
+                CategoryId = model.CategoryId,
+                AccountId = model.AccountId
+            };
+
+            await repo.AddAsync(entity);
+
+            await IncrementAccountAmountAsync(model.AccountId, model.Amount);
+
+            await repo.SaveChangesAsync();
+        }
+
+        public async Task<List<AccountViewModel>> GetAccountsByIdAsync(string userId)
+        {
+            return await repo.AllReadonly<Account>().Select(i => new AccountViewModel()
+            {
+                Id = i.Id,
+                Amount = i.Amount,
+                Name = i.Name,
+                ApplicationUserId = i.ApplicationUserId
+            }).Where(x => x.ApplicationUserId == userId).ToListAsync();
+        }
+
+        public async Task<List<IncomeViewModel>> GetAllByUserIdAsync(string userId)
         {
             return await repo.AllReadonly<Income>().Select(i => new IncomeViewModel()
             {
@@ -32,13 +65,24 @@ namespace MoneyManager.Core.Services
                 Photo = i.Photo,
                 Category = i.Category.Name,
                 Account = i.Account.Name,
-                AccountUserId = i.ApplicationUserId
-            }).Where(x => x.AccountUserId == userId).ToListAsync();
+                ApplicationUserId = i.ApplicationUserId
+            }).Where(x => x.ApplicationUserId == userId).ToListAsync();
         }
 
-        public async Task<IEnumerable<CategoryIncome>> GetCategoriesIncomeAsync()
+        public async Task<List<CategoryIncome>> GetCategoriesIncomeAsync()
         {
             return await repo.AllReadonly<CategoryIncome>().ToListAsync();
         }
+
+        private async Task IncrementAccountAmountAsync(Guid accountId,decimal increment)
+        {
+            var entity = await repo.GetByIdAsync<Account>(accountId);
+            entity.Amount += increment;
+
+             repo.Update<Account>(entity);
+
+            await repo.SaveChangesAsync();
+        }
+
     }
 }

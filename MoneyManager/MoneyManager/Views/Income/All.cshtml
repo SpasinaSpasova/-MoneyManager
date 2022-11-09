@@ -11,7 +11,7 @@
 
 <div class="text-center row">
     <hr />
-    <form class="input-group-sm" asp-controller="Income" asp-action="Add">
+    <form class="input-group-sm" asp-controller="Income" asp-action="Add" method="get"> 
         <input type="submit" value="Add New Income" class="w-100 fs-6 btn btn-primary btn-block mb-3 p-2" />
     </form>
 </div>
@@ -28,7 +28,7 @@
             else
             {
                 <img class="card-img-top" style="width: 18rem;"
-             src="@income.Photo" alt="Income Image">
+             src="~/resources//defaul.jpg" alt="Income Image">
             }
 
             <div class="card-body">

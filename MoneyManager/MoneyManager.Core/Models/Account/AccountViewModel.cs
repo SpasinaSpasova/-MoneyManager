@@ -13,19 +13,12 @@ namespace MoneyManager.Core.Models.Account
 {
     public class AccountViewModel
     {
-        [Key]
         public Guid Id { get; set; }
 
-        [Required]
-        [StringLength(AccountNameMaxLength)]
         public string Name { get; set; } = null!;
 
-        [Required]
-        [Column(TypeName = "money")]
-        [Precision(18, 2)]
         public decimal Amount { get; set; }
 
-        [Required]
         public string ApplicationUserId { get; set; } = null!;
     }
 }

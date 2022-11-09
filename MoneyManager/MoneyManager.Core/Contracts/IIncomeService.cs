@@ -11,8 +11,9 @@ namespace MoneyManager.Core.Contracts
 {
     public interface IIncomeService
     {
-        Task<IEnumerable<IncomeViewModel>> GetAllByUserIdAsync(string userId);
-        Task<IEnumerable<CategoryIncome>> GetCategoriesIncomeAsync();
-       // Task<IEnumerable<AccountViewModel>> GetAccountsByIdAsync(string userId);
+        Task<List<IncomeViewModel>> GetAllByUserIdAsync(string userId);
+        Task<List<CategoryIncome>> GetCategoriesIncomeAsync();
+        Task<List<AccountViewModel>> GetAccountsByIdAsync(string userId);
+        Task AddIncomeAsync(AddIncomeViewModel model, string userId);
     }
 }
