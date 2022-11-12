@@ -11,7 +11,7 @@
 
 <div class="text-center row">
     <hr />
-    <form class="input-group-sm" asp-controller="Income" asp-action="Add" method="get"> 
+    <form class="input-group-sm" asp-controller="Income" asp-action="Add" method="get">
         <input type="submit" value="Add New Income" class="w-100 fs-6 btn btn-primary btn-block mb-3 p-2" />
     </form>
 </div>
@@ -42,13 +42,19 @@
                 }
             </div>
 
-            <form class="input-group-sm" asp-controller="Income" asp-action="Edit" asp-route-incomeId="@income.Id">
+            <form method="get" class="input-group-sm" asp-controller="Income" asp-action="Edit">
                 <input type="submit" value="Edit" class="fs-6 btn btn-success mb-3 p-2" />
+                <input name="id" type="hidden" value="@income.Id" />
             </form>
-            <form class="input-group-sm" asp-controller="Income" asp-action="Delete" asp-route-incomeId="@income.Id">
-                <input type="submit" value="Delete" class="fs-6 btn btn-success mb-3 p-2" />
+            <form method="post" class="input-group-sm" asp-controller="Income" asp-action="Delete">
+                <input name="id" type="hidden" value="@income.Id" />
+                <button type="submit" class="fs-6 btn btn-danger mb-3 p-2">Delete</button>
             </form>
-
-        </div>
+            <form method="post" enctype="multipart/form-data" asp-controller="Income" asp-action="Upload">
+                <input class="mb-3" type="file" name="file"/>
+                <button class="fs-6 btn btn-success mb-3 p-2" type="submit" value="Upload">Upload Income Image</button>
+                <input name="id" type="hidden" value="@income.Id" />
+            </form>
+        </div> 
     }
 </div>

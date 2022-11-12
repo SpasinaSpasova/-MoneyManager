@@ -1,4 +1,5 @@
-﻿using MoneyManager.Core.Models.Account;
+﻿using Microsoft.AspNetCore.Http;
+using MoneyManager.Core.Models.Account;
 using MoneyManager.Core.Models.Income;
 using MoneyManager.Infrastructure.Data.Entities;
 using System;
@@ -15,5 +16,9 @@ namespace MoneyManager.Core.Contracts
         Task<List<CategoryIncome>> GetCategoriesIncomeAsync();
         Task<List<AccountViewModel>> GetAccountsByIdAsync(string userId);
         Task AddIncomeAsync(AddIncomeViewModel model, string userId);
+        Task Delete(Guid id);
+        Task Upload(Guid id, IFormFileCollection files);
+        Task<EditIncomeViewModel> GetForEditAsync(Guid id);
+        Task EditAsync(EditIncomeViewModel model);
     }
 }

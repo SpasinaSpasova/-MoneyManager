@@ -6,6 +6,7 @@ using MoneyManager.Core.Services;
 using MoneyManager.Infrastructure.Data;
 using MoneyManager.Infrastructure.Data.Entities;
 using System.Security.Claims;
+using static MoneyManager.Infrastructure.Data.DataConstants;
 
 namespace MoneyManager.Controllers
 {
@@ -68,7 +69,6 @@ namespace MoneyManager.Controllers
             {
                 if (currentUserId != null)
                 {
-
                     await incomeService.AddIncomeAsync(model, currentUserId);
                 }
 
@@ -83,24 +83,46 @@ namespace MoneyManager.Controllers
 
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Upload(IFormFileCollection files)
+        [HttpGet]
+        public async Task<IActionResult> Edit(Guid id)
         {
-            foreach (var file in files)
+            var model = await incomeService.GetForEditAsync(id);
+
+            var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            model.Categories = await incomeService.GetCategoriesIncomeAsync();
+            model.Accounts = await incomeService.GetAccountsByIdAsync(currentUserId);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditIncomeViewModel model)
+         {
+            if (!ModelState.IsValid)
             {
-                string fileName = file.FileName;
-
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    await file.CopyToAsync(ms);
-                    byte[] data = ms.ToArray();
-
-                    //can save this byte array in database
-                }
+                return View(model);
             }
 
+            await incomeService.EditAsync(model);
 
-            return Ok();
+            return RedirectToAction(nameof(All));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Upload([FromForm] Guid id,IFormFileCollection file)
+        {
+
+            await incomeService.Upload(id,file);
+
+            return RedirectToAction(nameof(All));
+        }
+        [HttpPost]
+        public async Task<IActionResult> Delete([FromForm]Guid id)
+        {
+            await incomeService.Delete(id);
+
+            return RedirectToAction(nameof(All));
         }
     }
 }

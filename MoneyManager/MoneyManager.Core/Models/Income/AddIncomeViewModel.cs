@@ -20,8 +20,6 @@ namespace MoneyManager.Core.Models.Income
         [Required]
         public DateTime Date { get; set; }
 
-        public byte[]? Photo { get; set; }
-
         [Required]
         public Guid CategoryId { get; set; }
 
