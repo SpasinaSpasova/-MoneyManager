@@ -48,13 +48,21 @@
             </form>
             <form method="post" class="input-group-sm" asp-controller="Income" asp-action="Delete">
                 <input name="id" type="hidden" value="@income.Id" />
-                <button type="submit" class="fs-6 btn btn-danger mb-3 p-2">Delete</button>
+                <button type="submit" class="fs-6 btn btn-danger mb-3 p-2" onclick="return confirm('Are you sure you want to delete this item?')">Delete</button>
             </form>
             <form method="post" enctype="multipart/form-data" asp-controller="Income" asp-action="Upload">
-                <input class="mb-3" type="file" name="file"/>
-                <button class="fs-6 btn btn-success mb-3 p-2" type="submit" value="Upload">Upload Income Image</button>
+                <input id="ph" class="mb-3" type="file" name="file" accept="image/png, image/jpeg, image/jpg" />
+                <button class="fs-6 btn btn-success mb-3 p-2" type="submit" value="Upload" onclick="upl(event)">Upload Income Image</button>
                 <input name="id" type="hidden" value="@income.Id" />
             </form>
-        </div> 
+        </div>
     }
 </div>
+<script>
+    function upl(event) {
+        if (document.querySelector("#ph").value == '') {
+            alert("Please,choose file!");
+            event.preventDefault();
+        }
+    }
+</script>

@@ -34,6 +34,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 builder.Services.AddScoped<IRepository, Repository>();
 builder.Services.AddScoped<IIncomeService, IncomeService>();
+builder.Services.AddScoped<IExpenseService, ExpenseService>();
 
 var app = builder.Build();
 

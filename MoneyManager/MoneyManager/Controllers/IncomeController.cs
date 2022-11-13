@@ -60,6 +60,10 @@ namespace MoneyManager.Controllers
         {
             var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
+            model.Categories = await incomeService.GetCategoriesIncomeAsync();
+
+            model.Accounts = await incomeService.GetAccountsByIdAsync(currentUserId);
+
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -90,15 +94,19 @@ namespace MoneyManager.Controllers
 
             var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-            model.Categories = await incomeService.GetCategoriesIncomeAsync();
-            model.Accounts = await incomeService.GetAccountsByIdAsync(currentUserId);
+            if (currentUserId != null)
+            {
+
+                model.Categories = await incomeService.GetCategoriesIncomeAsync();
+                model.Accounts = await incomeService.GetAccountsByIdAsync(currentUserId);
+            }
 
             return View(model);
         }
 
         [HttpPost]
         public async Task<IActionResult> Edit(EditIncomeViewModel model)
-         {
+        {
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -110,17 +118,17 @@ namespace MoneyManager.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Upload([FromForm] Guid id,IFormFileCollection file)
+        public async Task<IActionResult> Upload([FromForm] Guid id, IFormFileCollection file)
         {
 
-            await incomeService.Upload(id,file);
-
+            await incomeService.UploadAsync(id, file);
             return RedirectToAction(nameof(All));
+
         }
         [HttpPost]
-        public async Task<IActionResult> Delete([FromForm]Guid id)
+        public async Task<IActionResult> Delete([FromForm] Guid id)
         {
-            await incomeService.Delete(id);
+            await incomeService.DeleteAsync(id);
 
             return RedirectToAction(nameof(All));
         }

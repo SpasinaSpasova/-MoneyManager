@@ -1,34 +1,32 @@
 ﻿using HouseRentingSystem.Infrastructure.Data.Common;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Data.SqlClient.Server;
 using Microsoft.EntityFrameworkCore;
 using MoneyManager.Core.Contracts;
 using MoneyManager.Core.Models.Account;
+using MoneyManager.Core.Models.Expense;
 using MoneyManager.Core.Models.Income;
 using MoneyManager.Infrastructure.Data.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
-using static MoneyManager.Infrastructure.Data.DataConstants;
-using Account = MoneyManager.Infrastructure.Data.Entities.Account;
 
 namespace MoneyManager.Core.Services
 {
-    public class IncomeService : IIncomeService
+    public class ExpenseService : IExpenseService
     {
         private readonly IRepository repo;
-        public IncomeService(IRepository _repo)
+        public ExpenseService(IRepository _repo)
         {
             repo = _repo;
         }
 
-        public async Task AddIncomeAsync(AddIncomeViewModel model, string userId)
+        public async Task AddExpenseAsync(AddExpenseViewModel model, string userId)
         {
-            var entity = new Income()
+
+            var entity = new Expense()
             {
                 Amount = model.Amount,
                 Description = model.Description,
@@ -40,9 +38,10 @@ namespace MoneyManager.Core.Services
 
             await repo.AddAsync(entity);
 
-            await IncrementAccountAmountAsync(model.AccountId, model.Amount);
+            await DecrementAccountAmountAsync(model.AccountId, model.Amount);
 
             await repo.SaveChangesAsync();
+
         }
 
         public async Task<List<AccountViewModel>> GetAccountsByIdAsync(string userId)
@@ -56,9 +55,9 @@ namespace MoneyManager.Core.Services
             }).Where(x => x.ApplicationUserId == userId).ToListAsync();
         }
 
-        public async Task<List<IncomeViewModel>> GetAllByUserIdAsync(string userId)
+        public async Task<List<ExpenseViewModel>> GetAllByUserIdAsync(string userId)
         {
-            return await repo.AllReadonly<Income>().Where(x => x.IsActive).Select(i => new IncomeViewModel()
+            return await repo.AllReadonly<Expense>().Where(x => x.IsActive).Select(i => new ExpenseViewModel()
             {
                 Id = i.Id,
                 Amount = i.Amount,
@@ -71,40 +70,14 @@ namespace MoneyManager.Core.Services
             }).Where(x => x.ApplicationUserId == userId).ToListAsync();
         }
 
-        public async Task<List<CategoryIncome>> GetCategoriesIncomeAsync()
+        public async Task<List<CategoryExpense>> GetCategoriesExpenseAsync()
         {
-            return await repo.AllReadonly<CategoryIncome>().ToListAsync();
-        }
-
-        private async Task IncrementAccountAmountAsync(Guid accountId, decimal increment)
-        {
-            var entity = await repo.GetByIdAsync<Account>(accountId);
-            entity.Amount += increment;
-
-            repo.Update<Account>(entity);
-
-            await repo.SaveChangesAsync();
-        }
-
-        public async Task DeleteAsync(Guid id)
-        {
-            var income = await repo.GetByIdAsync<Income>(id);
-            if (income != null)
-            {
-                income.IsActive = false;
-
-                var account = await repo.GetByIdAsync<Account>(income.AccountId);
-                account.Amount -= income.Amount;
-
-                repo.Update<Account>(account);
-
-                await repo.SaveChangesAsync();
-            }
+            return await repo.AllReadonly<CategoryExpense>().ToListAsync();
         }
 
         public async Task UploadAsync(Guid id, IFormFileCollection files)
         {
-            var entity = await repo.GetByIdAsync<Income>(id);
+            var entity = await repo.GetByIdAsync<Expense>(id);
 
             foreach (var file in files)
             {
@@ -117,53 +90,85 @@ namespace MoneyManager.Core.Services
 
                     entity.Photo = data;
 
-                    repo.Update<Income>(entity);
+                    repo.Update<Expense>(entity);
 
                     await repo.SaveChangesAsync();
                 }
             }
         }
 
-        public async Task<EditIncomeViewModel> GetForEditAsync(Guid id)
+        private async Task DecrementAccountAmountAsync(Guid accountId, decimal decrement)
         {
-            var income = await repo.GetByIdAsync<Income>(id);
+            var entity = await repo.GetByIdAsync<Account>(accountId);
+            entity.Amount -= decrement;
 
-            return new EditIncomeViewModel()
+            repo.Update<Account>(entity);
+
+            await repo.SaveChangesAsync();
+        }
+
+        public async Task DeleteAsync(Guid id)
+        {
+            var expense = await repo.GetByIdAsync<Expense>(id);
+            if (expense != null)
             {
-                Id = income.Id,
-                Amount = income.Amount,
-                Description = income.Description,
-                AccountId = income.AccountId,
-                CategoryId = income.CategoryId,
-                Date = income.Date
+                expense.IsActive = false;
+
+                var account = await repo.GetByIdAsync<Account>(expense.AccountId);
+                account.Amount += expense.Amount;
+
+                repo.Update<Account>(account);
+
+                await repo.SaveChangesAsync();
+            }
+        }
+
+        public async Task<EditExpenseViewModel> GetForEditAsync(Guid id)
+        {
+            var expense = await repo.GetByIdAsync<Expense>(id);
+
+            return new EditExpenseViewModel()
+            {
+                Id = expense.Id,
+                Amount = expense.Amount,
+                Description = expense.Description,
+                AccountId = expense.AccountId,
+                CategoryId = expense.CategoryId,
+                Date = expense.Date
             };
         }
 
-        public async Task EditAsync(EditIncomeViewModel model)
+        public async Task<int> EditAsync(EditExpenseViewModel model)
         {
-            var entity = await repo.GetByIdAsync<Income>(model.Id);
+            var entity = await repo.GetByIdAsync<Expense>(model.Id);
             var account = await repo.GetByIdAsync<Account>(entity.AccountId);
+            var newAccount = await repo.GetByIdAsync<Account>(model.AccountId);
+
+            if ((entity.Amount != model.Amount
+                && account.Amount < model.Amount)||(entity.Amount != model.Amount
+                && newAccount.Amount < model.Amount))
+            {
+                return -1; ;
+            }
 
             if (entity.AccountId != model.AccountId && entity.Amount != model.Amount)
             {
-                var newAccount = await repo.GetByIdAsync<Account>(model.AccountId);
-                newAccount.Amount += model.Amount;
-                account.Amount -= entity.Amount;
+                newAccount.Amount -= model.Amount;
+                account.Amount += entity.Amount;
                 repo.Update<Account>(account);
                 repo.Update<Account>(newAccount);
             }
             else if (entity.AccountId != model.AccountId)
             {
-                var newAccount = await repo.GetByIdAsync<Account>(model.AccountId);
-                newAccount.Amount += model.Amount;
-                account.Amount -= entity.Amount;
+                newAccount.Amount -= model.Amount;
+                account.Amount += entity.Amount;
                 repo.Update<Account>(account);
                 repo.Update<Account>(newAccount);
             }
             else if (entity.Amount != model.Amount)
             {
-                account.Amount -= entity.Amount;
-                account.Amount += model.Amount;
+                account.Amount += entity.Amount;
+                account.Amount -= model.Amount;
                 repo.Update<Account>(account);
             }
 
@@ -174,6 +179,8 @@ namespace MoneyManager.Core.Services
             entity.CategoryId = model.CategoryId;
 
             await repo.SaveChangesAsync();
+
+            return 1;
         }
     }
 }

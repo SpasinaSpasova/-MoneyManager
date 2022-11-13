@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using MoneyManager.Core.Models.Account;
+using MoneyManager.Core.Models.Expense;
 using MoneyManager.Core.Models.Income;
 using MoneyManager.Infrastructure.Data.Entities;
 using System;
@@ -10,15 +11,15 @@ using System.Threading.Tasks;
 
 namespace MoneyManager.Core.Contracts
 {
-    public interface IIncomeService
+    public interface IExpenseService
     {
-        Task<List<IncomeViewModel>> GetAllByUserIdAsync(string userId);
-        Task<List<CategoryIncome>> GetCategoriesIncomeAsync();
+        Task<List<ExpenseViewModel>> GetAllByUserIdAsync(string userId);
+        Task<List<CategoryExpense>> GetCategoriesExpenseAsync();
         Task<List<AccountViewModel>> GetAccountsByIdAsync(string userId);
-        Task AddIncomeAsync(AddIncomeViewModel model, string userId);
-        Task DeleteAsync(Guid id);
+        Task AddExpenseAsync(AddExpenseViewModel model, string userId);
         Task UploadAsync(Guid id, IFormFileCollection files);
-        Task<EditIncomeViewModel> GetForEditAsync(Guid id);
-        Task EditAsync(EditIncomeViewModel model);
+        Task DeleteAsync(Guid id);
+        Task<EditExpenseViewModel> GetForEditAsync(Guid id);
+        Task<int> EditAsync(EditExpenseViewModel model);
     }
 }

@@ -1,7 +1,7 @@
-﻿@model AddIncomeViewModel;
+﻿@model AddExpenseViewModel;
 
 @{
-    ViewBag.Title = "Add Income";
+    ViewBag.Title = "Add Expense";
 }
 
 <div class="nav-link bg-white">
@@ -10,7 +10,7 @@
 
 <div class="text-center row">
     <hr />
-    <form class="input-group-sm" asp-controller="CategoryIncome" asp-action="Add" method="post">
+    <form class="input-group-sm" asp-controller="CategoryExpense" asp-action="Add" method="post">
         <input type="submit" value="Add New Category" class="w-100 fs-6 btn btn-primary btn-block mb-3 p-2" />
     </form>
     <form class="input-group-sm" asp-controller="Account" asp-action="Add" method="post">
@@ -27,7 +27,6 @@
                 <label asp-for="@Model.Amount" class="form-label">Ammount</label>
                 <input asp-for="@Model.Amount" class="form-control" aria-required="true" />
                 <span asp-validation-for="Amount" class="text-danger"></span>
-                @Html.ValidationMessageFor(x => x.Amount)
             </div>
             <div class="mb-3">
                 <label asp-for="@Model.Description" class="form-label">Description</label>
