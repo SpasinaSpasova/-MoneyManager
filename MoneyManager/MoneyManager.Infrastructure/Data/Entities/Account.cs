@@ -30,5 +30,6 @@ namespace MoneyManager.Infrastructure.Data.Entities
         [Required]
         [ForeignKey(nameof(ApplicationUserId))]
         public ApplicationUser ApplicationUser { get; set; } = null!;
+        public bool IsActive { get; set; } = true;
     }
 }

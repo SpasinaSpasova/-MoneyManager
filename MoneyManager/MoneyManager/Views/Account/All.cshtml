@@ -1,0 +1,49 @@
+﻿@model IEnumerable<AccountViewModel>
+
+@{
+    ViewBag.Title = "All Accounts";
+}
+
+<div class="nav-link bg-white">
+    <h2 class="text-center">@ViewBag.Title</h2>
+</div>
+<div class="text-center row">
+    <hr />
+    <form class="input-group-sm" asp-controller="Account" asp-action="Add" method="get">
+        <input type="submit" value="Add New Account" class="w-100 fs-6 btn btn-primary btn-block mb-3 p-2" />
+    </form>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            @if (Model.Count() != 0)
+            {
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Account Name</th>
+                            <th scope="col">Ammount</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var account in Model)
+                        {
+
+                            <tr>
+                                <td>@account.Name</td>
+                                <td>@String.Format("{0:N2}",account.Amount) lv.</td>
+                                <td>
+                                    <button type="submit" class="btn btn-success">Edit</button>
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+</div>
