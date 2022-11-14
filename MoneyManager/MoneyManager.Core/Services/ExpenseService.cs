@@ -138,7 +138,7 @@ namespace MoneyManager.Core.Services
             };
         }
 
-        public async Task<int> EditAsync(EditExpenseViewModel model)
+        public async Task<bool> EditAsync(EditExpenseViewModel model)
         {
             var entity = await repo.GetByIdAsync<Expense>(model.Id);
             var account = await repo.GetByIdAsync<Account>(entity.AccountId);
@@ -148,7 +148,7 @@ namespace MoneyManager.Core.Services
                 && account.Amount < model.Amount)||(entity.Amount != model.Amount
                 && newAccount.Amount < model.Amount))
             {
-                return -1; ;
+                return false; 
             }
 
             if (entity.AccountId != model.AccountId && entity.Amount != model.Amount)
@@ -180,7 +180,7 @@ namespace MoneyManager.Core.Services
 
             await repo.SaveChangesAsync();
 
-            return 1;
+            return true;
         }
     }
 }

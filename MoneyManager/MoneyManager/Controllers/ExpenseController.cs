@@ -145,7 +145,7 @@ namespace MoneyManager.Controllers
 
             var result = await expenseService.EditAsync(model);
 
-            if (result <= -1)
+            if (result ==false)
             {
                 ModelState.AddModelError("Amount", "The amount on the account is insufficient! Please enter a new amount, or select a different account!");
                 return View(model);

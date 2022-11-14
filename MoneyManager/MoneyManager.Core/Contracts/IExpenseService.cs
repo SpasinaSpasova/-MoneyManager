@@ -20,6 +20,6 @@ namespace MoneyManager.Core.Contracts
         Task UploadAsync(Guid id, IFormFileCollection files);
         Task DeleteAsync(Guid id);
         Task<EditExpenseViewModel> GetForEditAsync(Guid id);
-        Task<int> EditAsync(EditExpenseViewModel model);
+        Task<bool> EditAsync(EditExpenseViewModel model);
     }
 }
