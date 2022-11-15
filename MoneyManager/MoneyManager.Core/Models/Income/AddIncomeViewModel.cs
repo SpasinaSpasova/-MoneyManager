@@ -12,7 +12,7 @@ namespace MoneyManager.Core.Models.Income
         [Required]
         [Column(TypeName = "money")]
         [Precision(18, 2)]
-        [Range(typeof(decimal), "0.1", "1000000000000", ConvertValueInInvariantCulture = true)]
+        [Range(typeof(decimal), "0.1", "1000000000000", ConvertValueInInvariantCulture = true, ErrorMessage = "The amount must be greater than 1!")]
         public decimal Amount { get; set; }
 
         public string? Description { get; set; }
@@ -29,6 +29,7 @@ namespace MoneyManager.Core.Models.Income
         public Guid AccountId { get; set; }
 
         public List<AccountViewModel> Accounts { get; set; } = new List<AccountViewModel>();
+
 
     }
 }

@@ -46,18 +46,18 @@ namespace MoneyManager.Core.Services
 
         public async Task<List<AccountViewModel>> GetAccountsByIdAsync(string userId)
         {
-            return await repo.AllReadonly<Account>().Select(i => new AccountViewModel()
+            return await repo.AllReadonly<Account>().Where(x => x.ApplicationUserId == userId && x.IsActive).OrderBy(x=>x.Name).Select(i => new AccountViewModel()
             {
                 Id = i.Id,
                 Amount = i.Amount,
                 Name = i.Name,
                 ApplicationUserId = i.ApplicationUserId
-            }).Where(x => x.ApplicationUserId == userId).ToListAsync();
+            }).ToListAsync();
         }
 
         public async Task<List<ExpenseViewModel>> GetAllByUserIdAsync(string userId)
         {
-            return await repo.AllReadonly<Expense>().Where(x => x.IsActive).Select(i => new ExpenseViewModel()
+            return await repo.AllReadonly<Expense>().Where(x => x.ApplicationUserId == userId && x.IsActive).OrderByDescending(x=>x.Date).Select(i => new ExpenseViewModel()
             {
                 Id = i.Id,
                 Amount = i.Amount,
@@ -67,12 +67,12 @@ namespace MoneyManager.Core.Services
                 Category = i.Category.Name,
                 Account = i.Account.Name,
                 ApplicationUserId = i.ApplicationUserId
-            }).Where(x => x.ApplicationUserId == userId).ToListAsync();
+            }).ToListAsync();
         }
 
         public async Task<List<CategoryExpense>> GetCategoriesExpenseAsync()
         {
-            return await repo.AllReadonly<CategoryExpense>().ToListAsync();
+            return await repo.AllReadonly<CategoryExpense>().OrderBy(x=>x.Name).ToListAsync();
         }
 
         public async Task UploadAsync(Guid id, IFormFileCollection files)

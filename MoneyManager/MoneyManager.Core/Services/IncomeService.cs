@@ -47,18 +47,18 @@ namespace MoneyManager.Core.Services
 
         public async Task<List<AccountViewModel>> GetAccountsByIdAsync(string userId)
         {
-            return await repo.AllReadonly<Account>().Select(i => new AccountViewModel()
+            return await repo.AllReadonly<Account>().Where(x => x.ApplicationUserId == userId && x.IsActive).OrderBy(x=>x.Name).Select(i => new AccountViewModel()
             {
                 Id = i.Id,
                 Amount = i.Amount,
                 Name = i.Name,
                 ApplicationUserId = i.ApplicationUserId
-            }).Where(x => x.ApplicationUserId == userId).ToListAsync();
+            }).ToListAsync();
         }
 
         public async Task<List<IncomeViewModel>> GetAllByUserIdAsync(string userId)
         {
-            return await repo.AllReadonly<Income>().Where(x => x.IsActive).Select(i => new IncomeViewModel()
+            return await repo.AllReadonly<Income>().Where(x => x.ApplicationUserId == userId && x.IsActive).OrderByDescending(x=>x.Date).Select(i => new IncomeViewModel()
             {
                 Id = i.Id,
                 Amount = i.Amount,
@@ -68,12 +68,12 @@ namespace MoneyManager.Core.Services
                 Category = i.Category.Name,
                 Account = i.Account.Name,
                 ApplicationUserId = i.ApplicationUserId
-            }).Where(x => x.ApplicationUserId == userId).ToListAsync();
+            }).ToListAsync();
         }
 
         public async Task<List<CategoryIncome>> GetCategoriesIncomeAsync()
         {
-            return await repo.AllReadonly<CategoryIncome>().ToListAsync();
+            return await repo.AllReadonly<CategoryIncome>().OrderBy(x=>x.Name).ToListAsync();
         }
 
         private async Task IncrementAccountAmountAsync(Guid accountId, decimal increment)
