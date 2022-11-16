@@ -157,5 +157,11 @@ namespace MoneyManager.Controllers
             }
 
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Cancel()
+        {
+            return  RedirectToAction(nameof(All));
+        }
     }
 }

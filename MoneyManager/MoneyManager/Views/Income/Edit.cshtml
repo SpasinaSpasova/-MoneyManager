@@ -35,7 +35,7 @@
             </div>
             <div class="mb-3">
                 <label asp-for="@Model.Date" class="form-label">Date</label>
-                <input type="datetime-local" asp-for="@Model.Date" class="form-control" aria-required="true"/>
+                <input type="datetime-local" asp-for="@Model.Date" class="form-control" aria-required="true" />
                 <span asp-validation-for="Date" class="text-danger"></span>
             </div>
             <div class="mb-3">
@@ -50,16 +50,31 @@
             </div>
             <div class="mb-3">
                 <label asp-for="@Model.AccountId" class="form-label">Account</label>
-                <select asp-for="@Model.AccountId" class="form-control">
-                    @foreach (var account in Model.Accounts)
-                    {
-                        <option value="@account.Id">@account.Name</option>
-                    }
-                </select>
-                <span asp-validation-for="AccountId" class="text-danger"></span>
+                @if (Model.Accounts.Count() == 0)
+                {
+                    <p style="color:red;">Please, add new account!</p>
+                }
+                else
+                {
+
+                    <select asp-for="@Model.AccountId" class="form-control">
+
+                        @foreach (var account in Model.Accounts)
+                        {
+                            <option value="@account.Id">@account.Name</option>
+                        }
+
+                    </select>
+                    <span asp-validation-for="AccountId" class="text-danger"></span>
+                }
             </div>
             <div class="text-center row">
-                <input class="fs-6 btn btn-success mb-3 p-2" type="submit" value="Edit" />
+                <input class="fs-6 btn btn-warning mb-3 p-2" type="submit" value="Edit" />
+            </div>
+        </form>
+        <form method="post" asp-action="Cancel" asp-controller="Income">
+            <div class="text-center row">
+                <input class="fs-6 btn btn-success mb-3 p-2" type="submit" value="Cancel" />
             </div>
         </form>
     </div>
