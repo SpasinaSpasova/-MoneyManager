@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using MoneyManager.Infrastructure.Data.Entities;
 using MoneyManager.Core.Models.Account;
 using MoneyManager.Core.Models.CategoryIncome;
 

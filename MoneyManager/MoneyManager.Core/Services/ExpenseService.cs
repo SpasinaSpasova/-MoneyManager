@@ -3,15 +3,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using MoneyManager.Core.Contracts;
 using MoneyManager.Core.Models.Account;
+using MoneyManager.Core.Models.CategoryExpense;
 using MoneyManager.Core.Models.Expense;
-using MoneyManager.Core.Models.Income;
 using MoneyManager.Infrastructure.Data.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata.Ecma335;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MoneyManager.Core.Services
 {
@@ -70,9 +64,12 @@ namespace MoneyManager.Core.Services
             }).ToListAsync();
         }
 
-        public async Task<List<CategoryExpense>> GetCategoriesExpenseAsync()
+        public async Task<List<CategoryExpenseViewModel>> GetCategoriesExpenseAsync()
         {
-            return await repo.AllReadonly<CategoryExpense>().OrderBy(x=>x.Name).ToListAsync();
+            return await repo.AllReadonly<CategoryExpense>().OrderBy(x=>x.Name).Select(x=>new CategoryExpenseViewModel()
+            {
+                Name = x.Name
+            }).ToListAsync();
         }
 
         public async Task UploadAsync(Guid id, IFormFileCollection files)

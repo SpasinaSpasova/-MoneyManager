@@ -1,15 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.EntityFrameworkCore;
-using MoneyManager.Infrastructure.Data.Entities;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MoneyManager.Core.Models.Income
+﻿namespace MoneyManager.Core.Models.Income
 {
     public class IncomeViewModel
     {

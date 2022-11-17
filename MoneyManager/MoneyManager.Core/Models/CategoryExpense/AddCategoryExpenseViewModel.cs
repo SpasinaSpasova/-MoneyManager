@@ -1,15 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using static MoneyManager.Infrastructure.Data.DataConstants.CategoryExpensesAndIncomes;
 
-namespace MoneyManager.Infrastructure.Data.Entities
+namespace MoneyManager.Core.Models.CategoryExpense
 {
-    public class CategoryExpense
+    public class AddCategoryExpenseViewModel
     {
-        [Key]
-        public Guid Id { get; set; }
-
         [Required]
-        [StringLength(CategoryNameMaxLength)]
+        [StringLength(CategoryNameMaxLength, MinimumLength = CategoryNameMinLength)]
         public string Name { get; set; } = null!;
     }
 }

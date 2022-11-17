@@ -1,26 +1,25 @@
 ﻿using HouseRentingSystem.Infrastructure.Data.Common;
 using Microsoft.EntityFrameworkCore;
 using MoneyManager.Core.Contracts;
-using MoneyManager.Core.Models.CategoryIncome;
+using MoneyManager.Core.Models.CategoryExpense;
 using MoneyManager.Infrastructure.Data.Entities;
 
 namespace MoneyManager.Core.Services
 {
-    public class CategoryIncomeService : ICategoryIncomeService
+    public class CategoryExpenseService : ICategoryExpenseService
     {
         private readonly IRepository repo;
-        public CategoryIncomeService(IRepository _repo)
+        public CategoryExpenseService(IRepository _repo)
         {
             repo = _repo;
         }
-
-        public async Task<bool> AddCategoryAsync(AddCategoryIncomeViewModel model)
+        public async Task<bool> AddCategoryAsync(AddCategoryExpenseViewModel model)
         {
-            var allCategories = await repo.AllReadonly<CategoryIncome>().ToListAsync();
+            var allCategories = await repo.AllReadonly<CategoryExpense>().ToListAsync();
 
             if (!allCategories.Any(x => x.Name.ToLower() == model.Name.ToLower()))
             {
-                var entity = new CategoryIncome()
+                var entity = new CategoryExpense()
                 {
                     Name = model.Name
                 };
@@ -35,9 +34,9 @@ namespace MoneyManager.Core.Services
             return false;
         }
 
-        public async Task EditAsync(EditCategoryIncomeViewModel model)
+        public async Task EditAsync(EditCategoryExpenseViewModel model)
         {
-            var entity = await repo.GetByIdAsync<CategoryIncome>(model.Id);
+            var entity = await repo.GetByIdAsync<CategoryExpense>(model.Id);
 
 
             entity.Name = model.Name;
@@ -45,20 +44,20 @@ namespace MoneyManager.Core.Services
             await repo.SaveChangesAsync();
         }
 
-        public async Task<List<CategoryIncomeViewModel>> GetAllAsync()
+        public async Task<List<CategoryExpenseViewModel>> GetAllAsync()
         {
-            return await repo.AllReadonly<CategoryIncome>().OrderBy(x => x.Name).Select(i => new CategoryIncomeViewModel()
+            return await repo.AllReadonly<CategoryExpense>().OrderBy(x => x.Name).Select(i => new CategoryExpenseViewModel()
             {
                 Id = i.Id,
                 Name = i.Name
             }).ToListAsync();
         }
 
-        public async Task<EditCategoryIncomeViewModel> GetForEditAsync(Guid id)
+        public async Task<EditCategoryExpenseViewModel> GetForEditAsync(Guid id)
         {
-            var category = await repo.GetByIdAsync<CategoryIncome>(id);
+            var category = await repo.GetByIdAsync<CategoryExpense>(id);
 
-            return new EditCategoryIncomeViewModel()
+            return new EditCategoryExpenseViewModel()
             {
                 Id = category.Id,
                 Name = category.Name

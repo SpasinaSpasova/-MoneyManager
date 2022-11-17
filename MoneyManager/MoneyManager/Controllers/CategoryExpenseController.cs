@@ -1,24 +1,24 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MoneyManager.Core.Contracts;
-using MoneyManager.Core.Models.CategoryIncome;
+using MoneyManager.Core.Models.CategoryExpense;
 
 namespace MoneyManager.Controllers
 {
     [Authorize]
-    public class CategoryIncomeController : Controller
+    public class CategoryExpenseController : Controller
     {
-        private readonly ICategoryIncomeService categoryIncomeService;
-        public CategoryIncomeController(ICategoryIncomeService _categoryIncomeService)
+        private readonly ICategoryExpenseService categoryExpenseService;
+        public CategoryExpenseController(ICategoryExpenseService _categoryExpenseService)
         {
-            categoryIncomeService = _categoryIncomeService;
+            categoryExpenseService = _categoryExpenseService;
         }
 
         [HttpGet]
         public async Task<IActionResult> All()
         {
 
-            var model = await categoryIncomeService.GetAllAsync();
+            var model = await categoryExpenseService.GetAllAsync();
 
             return View(model);
 
@@ -27,14 +27,14 @@ namespace MoneyManager.Controllers
         [HttpGet]
         public async Task<IActionResult> Add()
         {
-            var model = new AddCategoryIncomeViewModel();
+            var model = new AddCategoryExpenseViewModel();
 
             return View(model);
 
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(AddCategoryIncomeViewModel model)
+        public async Task<IActionResult> Add(AddCategoryExpenseViewModel model)
         {
 
             if (!ModelState.IsValid)
@@ -42,9 +42,9 @@ namespace MoneyManager.Controllers
                 return View(model);
             }
 
-            var result= await categoryIncomeService.AddCategoryAsync(model);
+            var result = await categoryExpenseService.AddCategoryAsync(model);
 
-            if (result==false)
+            if (result == false)
             {
                 ModelState.AddModelError("Name", "Category exist!");
                 return View(model);
@@ -58,13 +58,13 @@ namespace MoneyManager.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(Guid id)
         {
-            var model = await categoryIncomeService.GetForEditAsync(id);
+            var model = await categoryExpenseService.GetForEditAsync(id);
 
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(EditCategoryIncomeViewModel model)
+        public async Task<IActionResult> Edit(EditCategoryExpenseViewModel model)
         {
 
             if (!ModelState.IsValid)
@@ -72,7 +72,7 @@ namespace MoneyManager.Controllers
                 return View(model);
             }
 
-            await categoryIncomeService.EditAsync(model);
+            await categoryExpenseService.EditAsync(model);
 
             return RedirectToAction(nameof(All));
 

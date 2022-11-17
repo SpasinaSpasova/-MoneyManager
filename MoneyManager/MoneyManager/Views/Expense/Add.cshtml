@@ -10,7 +10,7 @@
 
 <div class="text-center row">
     <hr />
-    <form class="input-group-sm" asp-controller="CategoryExpense" asp-action="Add" method="post">
+    <form class="input-group-sm" asp-controller="CategoryExpense" asp-action="Add" method="get">
         <input type="submit" value="Add New Category" class="w-100 fs-6 btn btn-primary btn-block mb-3 p-2" />
     </form>
     <form class="input-group-sm" asp-controller="Account" asp-action="Add" method="get">
@@ -59,7 +59,7 @@
                 <span asp-validation-for="AccountId" class="text-danger"></span>
             </div>
             <div class="text-center row">
-                <input class="fs-6 btn btn-success mb-3 p-2" type="submit" value="Add" />
+                <input class="fs-6 btn btn-success mb-3 p-2" style="display: block; margin: 0 auto;width:250px" type="submit" value="Add" />
             </div>
         </form>
     </div>

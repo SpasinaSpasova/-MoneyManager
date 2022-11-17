@@ -1,14 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.EntityFrameworkCore;
 using MoneyManager.Core.Models.Account;
-using MoneyManager.Infrastructure.Data.Entities;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MoneyManager.Core.Models.CategoryExpense;
 
 namespace MoneyManager.Core.Models.Expense
 {
@@ -28,7 +23,7 @@ namespace MoneyManager.Core.Models.Expense
         [Required]
         public Guid CategoryId { get; set; }
 
-        public List<CategoryExpense> Categories { get; set; } = new List<CategoryExpense>();
+        public List<CategoryExpenseViewModel> Categories { get; set; } = new List<CategoryExpenseViewModel>();
 
         [Required]
         public Guid AccountId { get; set; }

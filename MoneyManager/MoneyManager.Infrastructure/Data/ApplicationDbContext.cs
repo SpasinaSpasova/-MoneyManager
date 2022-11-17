@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using MoneyManager.Infrastructure.Data.Configuration;
 using MoneyManager.Infrastructure.Data.Entities;
-using System.Reflection.Emit;
 
 namespace MoneyManager.Infrastructure.Data
 {

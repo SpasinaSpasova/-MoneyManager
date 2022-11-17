@@ -2,11 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MoneyManager.Core.Contracts;
 using MoneyManager.Core.Models.Income;
-using MoneyManager.Core.Services;
-using MoneyManager.Infrastructure.Data;
-using MoneyManager.Infrastructure.Data.Entities;
 using System.Security.Claims;
-using static MoneyManager.Infrastructure.Data.DataConstants;
 
 namespace MoneyManager.Controllers
 {

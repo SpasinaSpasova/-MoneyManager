@@ -38,6 +38,7 @@ builder.Services.AddScoped<IIncomeService, IncomeService>();
 builder.Services.AddScoped<IExpenseService, ExpenseService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<ICategoryIncomeService, CategoryIncomeService>();
+builder.Services.AddScoped<ICategoryExpenseService, CategoryExpenseService>();
 
 var app = builder.Build();
 

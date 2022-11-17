@@ -1,6 +1,6 @@
-﻿namespace MoneyManager.Core.Models.CategoryIncome
+﻿namespace MoneyManager.Core.Models.CategoryExpense
 {
-    public class CategoryIncomeViewModel
+    public class CategoryExpenseViewModel
     {
         public Guid Id { get; set; }
 

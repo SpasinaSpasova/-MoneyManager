@@ -2,8 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using MoneyManager.Core.Contracts;
 using MoneyManager.Core.Models.Expense;
-using MoneyManager.Core.Models.Income;
-using MoneyManager.Core.Services;
 using System.Security.Claims;
 
 namespace MoneyManager.Controllers
