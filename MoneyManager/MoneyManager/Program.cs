@@ -37,6 +37,7 @@ builder.Services.AddScoped<IRepository, Repository>();
 builder.Services.AddScoped<IIncomeService, IncomeService>();
 builder.Services.AddScoped<IExpenseService, ExpenseService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<ICategoryIncomeService, CategoryIncomeService>();
 
 var app = builder.Build();
 

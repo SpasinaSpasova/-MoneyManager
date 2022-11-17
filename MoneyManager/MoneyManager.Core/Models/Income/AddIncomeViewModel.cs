@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using MoneyManager.Infrastructure.Data.Entities;
 using MoneyManager.Core.Models.Account;
+using MoneyManager.Core.Models.CategoryIncome;
 
 namespace MoneyManager.Core.Models.Income
 {
@@ -23,7 +24,7 @@ namespace MoneyManager.Core.Models.Income
         [Required]
         public Guid CategoryId { get; set; }
 
-        public List<CategoryIncome> Categories { get; set; } = new List<CategoryIncome>();
+        public List<CategoryIncomeViewModel> Categories { get; set; } = new List<CategoryIncomeViewModel>();
 
         [Required]
         public Guid AccountId { get; set; }

@@ -13,7 +13,7 @@
     <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
         <form method="post">
             <div class="mb-3">
-                <label asp-for="@Model.Name" class="form-label">Acount</label>
+                <label asp-for="@Model.Name" class="form-label">Acount Name</label>
                 <input asp-for="@Model.Name" class="form-control" aria-required="true" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
@@ -22,8 +22,8 @@
                 <input asp-for="@Model.Amount" class="form-control" aria-required="true" />
                 <span asp-validation-for="Amount" class="text-danger"></span>
             </div>
-            <div class="text-center row">
-                <input class="fs-6 btn btn-success mb-3 p-2" type="submit" value="Add" />
+            <div>
+                <input class="fs-6 btn btn-success mb-3" style="display: block; margin: 0 auto;" type="submit" value="Add" />
             </div>
         </form>
     </div>

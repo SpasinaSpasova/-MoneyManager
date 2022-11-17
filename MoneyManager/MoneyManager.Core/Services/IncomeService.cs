@@ -5,6 +5,7 @@ using Microsoft.Data.SqlClient.Server;
 using Microsoft.EntityFrameworkCore;
 using MoneyManager.Core.Contracts;
 using MoneyManager.Core.Models.Account;
+using MoneyManager.Core.Models.CategoryIncome;
 using MoneyManager.Core.Models.Income;
 using MoneyManager.Infrastructure.Data.Entities;
 using System;
@@ -47,7 +48,7 @@ namespace MoneyManager.Core.Services
 
         public async Task<List<AccountViewModel>> GetAccountsByIdAsync(string userId)
         {
-            return await repo.AllReadonly<Account>().Where(x => x.ApplicationUserId == userId && x.IsActive).OrderBy(x=>x.Name).Select(i => new AccountViewModel()
+            return await repo.AllReadonly<Account>().Where(x => x.ApplicationUserId == userId && x.IsActive).OrderBy(x => x.Name).Select(i => new AccountViewModel()
             {
                 Id = i.Id,
                 Amount = i.Amount,
@@ -58,7 +59,7 @@ namespace MoneyManager.Core.Services
 
         public async Task<List<IncomeViewModel>> GetAllByUserIdAsync(string userId)
         {
-            return await repo.AllReadonly<Income>().Where(x => x.ApplicationUserId == userId && x.IsActive).OrderByDescending(x=>x.Date).Select(i => new IncomeViewModel()
+            return await repo.AllReadonly<Income>().Where(x => x.ApplicationUserId == userId && x.IsActive).OrderByDescending(x => x.Date).Select(i => new IncomeViewModel()
             {
                 Id = i.Id,
                 Amount = i.Amount,
@@ -71,9 +72,14 @@ namespace MoneyManager.Core.Services
             }).ToListAsync();
         }
 
-        public async Task<List<CategoryIncome>> GetCategoriesIncomeAsync()
+        public async Task<List<CategoryIncomeViewModel>> GetCategoriesIncomeAsync()
         {
-            return await repo.AllReadonly<CategoryIncome>().OrderBy(x=>x.Name).ToListAsync();
+            return await repo.AllReadonly<CategoryIncome>().OrderBy(x => x.Name).Select(c => new CategoryIncomeViewModel()
+            {
+                Id=c.Id,
+                Name=c.Name
+
+            }).ToListAsync();
         }
 
         private async Task IncrementAccountAmountAsync(Guid accountId, decimal increment)

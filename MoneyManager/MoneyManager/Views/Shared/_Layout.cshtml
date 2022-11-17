@@ -22,13 +22,19 @@
                         @if (User.Identity != null && User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link bg-white" asp-area="" asp-controller="Income" asp-action="All">Incomes</a>
+                                <a class="nav-link bg-white" asp-controller="Income" asp-action="All">Incomes</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link bg-white" asp-area="" asp-controller="Expense" asp-action="All">Expenses</a>
+                                <a class="nav-link bg-white" asp-controller="Expense" asp-action="All">Expenses</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link bg-white" asp-area="" asp-controller="Account" asp-action="All">Accounts</a>
+                                <a class="nav-link bg-white" asp-controller="Account" asp-action="All">Accounts</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link bg-white" asp-controller="CategoryIncome" asp-action="All">Income Categories</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link bg-white" asp-controller="CategoryExpense" asp-action="All">Expense Categories</a>
                             </li>
                         }
                     </ul>
