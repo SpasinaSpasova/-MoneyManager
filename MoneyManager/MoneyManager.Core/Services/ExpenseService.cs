@@ -68,6 +68,7 @@ namespace MoneyManager.Core.Services
         {
             return await repo.AllReadonly<CategoryExpense>().OrderBy(x=>x.Name).Select(x=>new CategoryExpenseViewModel()
             {
+                Id = x.Id,
                 Name = x.Name
             }).ToListAsync();
         }

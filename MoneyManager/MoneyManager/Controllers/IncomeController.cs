@@ -65,6 +65,13 @@ namespace MoneyManager.Controllers
                 return View(model);
             }
 
+            if (model.CategoryId==new Guid { } || model.AccountId == new Guid { })
+            {
+                ModelState.AddModelError("", "Something went wrong.");
+
+                return View(model);
+            }
+
             try
             {
                 if (currentUserId != null)

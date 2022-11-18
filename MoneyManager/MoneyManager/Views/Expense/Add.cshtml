@@ -10,10 +10,10 @@
 
 <div class="text-center row">
     <hr />
-    <form class="input-group-sm" asp-controller="CategoryExpense" asp-action="Add" method="get">
+    <form class="input-group-sm" asp-controller="CategoryExpense" asp-action="Add" method="post">
         <input type="submit" value="Add New Category" class="w-100 fs-6 btn btn-primary btn-block mb-3 p-2" />
     </form>
-    <form class="input-group-sm" asp-controller="Account" asp-action="Add" method="get">
+    <form class="input-group-sm" asp-controller="Account" asp-action="Add" method="post">
         <input type="submit" value="Add New Account" class="w-100 fs-6 btn btn-primary btn-block mb-3 p-2" />
     </form>
 </div>
@@ -40,26 +40,45 @@
             </div>
             <div class="mb-3">
                 <label asp-for="@Model.CategoryId" class="form-label">Category</label>
-                <select asp-for="@Model.CategoryId" class="form-control">
-                    @foreach (var category in Model.Categories)
-                    {
-                        <option value="@category.Id">@category.Name</option>
-                    }
-                </select>
-                <span asp-validation-for="CategoryId" class="text-danger"></span>
+                @if (Model.Categories.Count() != 0)
+                {
+                    <select asp-for="@Model.CategoryId" class="form-control">
+                        @foreach (var category in Model.Categories)
+                        {
+                            <option value="@category.Id">@category.Name</option>
+                        }
+                    </select>
+                    <span asp-validation-for="CategoryId" class="text-danger"></span>
+                }
+                else
+                {
+                    <p style="color:red">
+                        There are no categories yet. Please, add new category!
+                    </p>
+                }
             </div>
             <div class="mb-3">
                 <label asp-for="@Model.AccountId" class="form-label">Account</label>
-                <select asp-for="@Model.AccountId" class="form-control">
-                    @foreach (var account in Model.Accounts)
-                    {
-                        <option value="@account.Id">@account.Name</option>
-                    }
-                </select>
-                <span asp-validation-for="AccountId" class="text-danger"></span>
+                @if (Model.Accounts.Count() != 0)
+                {
+
+                    <select asp-for="@Model.AccountId" class="form-control">
+                        @foreach (var account in Model.Accounts)
+                        {
+                            <option value="@account.Id">@account.Name</option>
+                        }
+                    </select>
+                    <span asp-validation-for="AccountId" class="text-danger"></span>
+                }
+                else
+                {
+                    <p style="color:red">
+                        There are no accounts yet. Please, add new account!
+                    </p>
+                }
             </div>
             <div class="text-center row">
-                <input class="fs-6 btn btn-success mb-3 p-2" style="display: block; margin: 0 auto;width:250px" type="submit" value="Add" />
+                <input class="fs-6 btn btn-success mb-3 p-2" type="submit" value="Add" />
             </div>
         </form>
     </div>
