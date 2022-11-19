@@ -1,0 +1,108 @@
+﻿@model ViewModel;
+
+
+<!-- Incomes, Expenses, Total -->
+
+<div class="row mb-4" style="margin:auto;justify-content: center">
+
+    <div class="col-md-3">
+        <div class="d-flex flex-row widget summary income">
+            <div class="flex-column m-auto py">
+                <span class="lead">Total Income</span>
+                <h1 class="display-6 fw-bold">@String.Format("{0:N2}",Model.Totals.IncomeTotal) lv.</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="flex-row widget summary expense">
+            <div class="d-flex flex-column m-auto py">
+                <span class="lead">Total Expense</span>
+                <h1 class="display-6 fw-bold">@String.Format("{0:N2}",Model.Totals.ExpenseTotal) lv.</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="flex-row widget summary balance">
+            <div class="d-flex flex-column m-auto py">
+                <span class="lead">Balance</span>
+                <h1 class="display-6 fw-bold">@String.Format("{0:N2}",Model.Totals.Balance) lv.</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Incomes vs Expenses Pie Diagram -->
+<div class="col-sm-4">
+    <div class="card-header">
+        <canvas class="my-4 h-25" id="pie"></canvas>
+    </div>
+</div>
+
+<!-- Incomes by categories Pie Diagram -->
+<div class="col-sm-4">
+    <div class="card-header">
+        <canvas class="my-4 h-25" id="pie2"></canvas>
+    </div>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+</script>
+
+<!-- Pie Diagram JS-->
+<script>
+    var xValues = ['Income', 'Expense'];
+    var yValues = [@Model.Totals.IncomeTotal, @Model.Totals.ExpenseTotal];
+    var barColors = [
+        "#0d6efd",
+        "#e8102a"
+    ];
+
+    new Chart("pie", {
+        type: "doughnut",
+        data: {
+            labels: xValues,
+            datasets: [{
+                backgroundColor: barColors,
+                data: yValues
+            }]
+        },
+        options: {
+            title: {
+                display: true,
+                text: "Incomes vs Expenses"
+            }
+        }
+    });
+
+
+    var xValues1 = @Html.Raw(Json.Serialize(Model.IncomesCategories.CategoriesName))
+        var yValues1 = @Html.Raw(Json.Serialize(Model.IncomesCategories.IncomesByCategoriesName))
+
+        var barColors1 = [
+        "#0d6efd",
+        "#e8102a"
+    ];
+
+    new Chart("pie2", {
+        type: "doughnut",
+        data: {
+            labels: xValues1,
+            datasets: [{
+                backgroundColor: barColors1,
+                data: yValues1
+            }]
+        },
+        options: {
+            title: {
+                display: true,
+                text: "Incomes by categories"
+            }
+        }
+    });
+</script>
+
+
+

@@ -36,7 +36,30 @@ body {
 .inline {
     display: inline-block;
 }
+
 .col-8 {
     margin-left: auto;
     margin-right: auto;
 }
+
+/*Widget*/
+.widget {
+    border-radius: 1rem;
+    background-color: #0d6efd;
+}
+
+
+    .widget.income > div:first-child {
+        color: white;
+        text-align: center
+    }
+
+    .widget.expense > div:first-child {
+        color: white;
+        text-align: center
+    }
+
+    .widget.balance > div:first-child {
+        color: white;
+        text-align: center
+    }

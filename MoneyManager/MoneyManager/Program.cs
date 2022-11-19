@@ -39,6 +39,7 @@ builder.Services.AddScoped<IExpenseService, ExpenseService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<ICategoryIncomeService, CategoryIncomeService>();
 builder.Services.AddScoped<ICategoryExpenseService, CategoryExpenseService>();
+builder.Services.AddScoped<IHomeService, HomeService>();
 
 var app = builder.Build();
 

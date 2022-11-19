@@ -3,11 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneyManager", "MoneyManager\MoneyManager.csproj", "{48522238-BAEA-4156-A8C4-D238129EB5E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoneyManager", "MoneyManager\MoneyManager.csproj", "{48522238-BAEA-4156-A8C4-D238129EB5E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneyManager.Infrastructure", "MoneyManager.Infrastructure\MoneyManager.Infrastructure.csproj", "{F74FF3C1-948D-41D0-9E08-857FE2F003C6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoneyManager.Infrastructure", "MoneyManager.Infrastructure\MoneyManager.Infrastructure.csproj", "{F74FF3C1-948D-41D0-9E08-857FE2F003C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneyManager.Core", "MoneyManager.Core\MoneyManager.Core.csproj", "{D694AD8A-83B5-41C4-8601-99487F13BA45}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoneyManager.Core", "MoneyManager.Core\MoneyManager.Core.csproj", "{D694AD8A-83B5-41C4-8601-99487F13BA45}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8759E4A5-2145-4B67-B3F0-59FC57B97425}"
+	ProjectSection(SolutionItems) = preProject
+		..\README.md = ..\README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

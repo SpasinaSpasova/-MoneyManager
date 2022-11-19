@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Money Manager</title>
+    <title>@ViewData["Title"] Money Manager</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/MoneyManager.styles.css" asp-append-version="true" />
@@ -12,7 +12,14 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand nav-link bg-white" asp-area="" asp-controller="Home" asp-action="Index">MoneyManager</a>
+                @if (User.Identity != null && User.Identity.IsAuthenticated)
+                {
+                    <a class="navbar-brand nav-link bg-white" asp-controller="Home" asp-action="Dashboard">MoneyManager</a>
+                }
+                else{
+                    <a class="navbar-brand nav-link bg-white"  asp-controller="Home" asp-action="Index">MoneyManager</a>
+
+                }
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
