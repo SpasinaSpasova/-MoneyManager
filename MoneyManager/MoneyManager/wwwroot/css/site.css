@@ -42,6 +42,11 @@ body {
     margin-right: auto;
 }
 
+.container-name div {
+    display: inline-block;
+    width: 500px;
+} 
+
 /*Widget*/
 .widget {
     border-radius: 1rem;

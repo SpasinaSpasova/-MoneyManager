@@ -52,6 +52,24 @@ namespace MoneyManager.Core.Services
                 model.IncomesCategories.IncomesByCategoriesName.Add(sumIncomesByCategory);
             }
 
+
+            //Expenses by categories
+
+            model.ExpensesCategories = new ExpensesCategoriesViewModel();
+
+            var categoriesExpense = await repo.AllReadonly<Expense>().Where(x => x.IsActive && x.ApplicationUserId == userId).Select(c => c.Category.Name).Distinct().ToListAsync();
+
+            model.ExpensesCategories.CategoriesName = categoriesExpense;
+
+            double sumExpenseByCategory;
+
+            foreach (var category in categoriesExpense)
+            {
+                sumExpenseByCategory = (double)repo.AllReadonly<Expense>().Where(x => x.IsActive && x.ApplicationUserId == userId && x.Category.Name == category).Sum(x => x.Amount);
+
+                model.ExpensesCategories.ExpensesByCategoriesName.Add(sumExpenseByCategory);
+            }
+
             return model;
         }
     }

@@ -34,25 +34,60 @@
 </div>
 
 <!-- Incomes vs Expenses Pie Diagram -->
-<div class="col-sm-4">
-    <div class="card-header">
-        <canvas class="my-4 h-25" id="pie"></canvas>
+
+<div class="container" style="display: flex;
+    align-items: center;
+    justify-content: center;padding: 10px;">
+    <div class="col-md-5">
+        <div class="card-header">
+            <canvas class="my-4 h-25" id="pie"></canvas>
+        </div>
     </div>
 </div>
 
 <!-- Incomes by categories Pie Diagram -->
-<div class="col-sm-4">
-    <div class="card-header">
-        <canvas class="my-4 h-25" id="pie2"></canvas>
+
+<div class="container-name" style="display: flex;
+    justify-content: space-evenly;padding: 10px;">
+
+    <div class="col-sm-5">
+        <div class="card-header">
+            <canvas class="my-4 h-25" id="pie2"></canvas>
+        </div>
+
+    </div>
+
+    <!-- Expenses by categories Pie Diagram -->
+
+    <div class="col-sm-5">
+        <div class="card-header">
+            <canvas class="my-4 h-25" id="pie3"></canvas>
+        </div>
+
     </div>
 </div>
 
+
+<!-- Expenses and Incomes by week Diagram -->
+
+<div class="container" style="display: flex;
+    align-items: center;
+    justify-content: center;padding: 10px;">
+    <div class="col-md-5">
+        <div class="card-header">
+            <canvas class="my-4 h-25" id="byDay"></canvas>
+        </div>
+    </div>
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 </script>
 
 <!-- Pie Diagram JS-->
 <script>
+
+    //incomes vs expenses
+
     var xValues = ['Income', 'Expense'];
     var yValues = [@Model.Totals.IncomeTotal, @Model.Totals.ExpenseTotal];
     var barColors = [
@@ -78,13 +113,16 @@
     });
 
 
-    var xValues1 = @Html.Raw(Json.Serialize(Model.IncomesCategories.CategoriesName))
-        var yValues1 = @Html.Raw(Json.Serialize(Model.IncomesCategories.IncomesByCategoriesName))
+    //Incomes by categories
 
-        var barColors1 = [
-        "#0d6efd",
-        "#e8102a"
-    ];
+    var xValues1 = @Html.Raw(Json.Serialize(Model.IncomesCategories.CategoriesName));
+    var yValues1 = @Html.Raw(Json.Serialize(Model.IncomesCategories.IncomesByCategoriesName));
+
+    var barColors1 = [];
+
+    for (let i = 0; i < @Model.IncomesCategories.CategoriesName.Count(); i++) {
+        barColors1.push("#" + Math.floor(Math.random() * 16777215).toString(16));
+    }
 
     new Chart("pie2", {
         type: "doughnut",
@@ -102,6 +140,69 @@
             }
         }
     });
+
+
+    //Expenses by categories
+
+    var xValues2 = @Html.Raw(Json.Serialize(Model.ExpensesCategories.CategoriesName));
+    var yValues2 = @Html.Raw(Json.Serialize(Model.ExpensesCategories.ExpensesByCategoriesName));
+
+    var barColors2 = [];
+
+    for (let i = 0; i < @Model.ExpensesCategories.CategoriesName.Count(); i++) {
+        barColors2.push("#" + Math.floor(Math.random() * 16777215).toString(16));
+    }
+
+    new Chart("pie3", {
+        type: "doughnut",
+        data: {
+            labels: xValues2,
+            datasets: [{
+                backgroundColor: barColors2,
+                data: yValues2
+            }]
+        },
+        options: {
+            title: {
+                display: true,
+                text: "Expenses by categories"
+            }
+        }
+    });
+
+
+    //Expenses and Incomes by week
+
+    var xValues3 = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000];
+
+    new Chart("byDay", {
+        type: "line",
+        legendText: "Incomes",
+        data: {
+            labels: xValues3,
+            datasets: [{
+                data: [860, 1140, 1060, 1060, 1070, 1110, 1330, 2210, 7830, 2478],
+                label: 'Expense',
+                borderColor: "red",
+                fill: true
+            }, {
+                data: [1600, 1700, 1700, 1900, 2000, 2700, 4000, 5000, 6000, 7000],
+                label: 'Income',
+                borderColor: "blue",
+                fill: true
+            }]
+        },
+        options: {
+            legend: { 
+                display: true
+            },
+            title: {
+                display: true,
+                text: "Incomes and Expenses by week"
+            }
+        }
+    });
+
 </script>
 
 
