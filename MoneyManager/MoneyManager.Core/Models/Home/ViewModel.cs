@@ -11,5 +11,6 @@ namespace MoneyManager.Core.Models.Home
         public TotalViewModel Totals { get; set; }
         public IncomesCategoriesViewModel IncomesCategories { get; set; }
         public ExpensesCategoriesViewModel ExpensesCategories { get; set; }
+        public IncomesAndExpensesForWeek IncomesAndExpensesForWeek { get; set; }
     }
 }

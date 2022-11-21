@@ -23,38 +23,23 @@ namespace MoneyManager.Core.Services
         {
             var model = new ViewModel();
 
-            //Incomes vs Expenses
-            var incomes = repo.AllReadonly<Income>().Where(x => x.IsActive && x.ApplicationUserId == userId).Sum(x => x.Amount);
+            //Incomes and Expenses totals
+            IncomesAndExpensesTotals(userId, model);
 
-            var expenses = repo.AllReadonly<Expense>().Where(x => x.IsActive && x.ApplicationUserId == userId).Sum(x => x.Amount);
-
-            var balance = Math.Abs(incomes - expenses);
-
-            model.Totals = new TotalViewModel();
-            model.Totals.IncomeTotal = incomes;
-            model.Totals.ExpenseTotal = expenses;
-            model.Totals.Balance = balance;
+            //Incomes and Expenses for week
+            IncomesAndExpensesForWeek(userId, model);
 
             //Incomes by categories
-
-            model.IncomesCategories = new IncomesCategoriesViewModel();
-
-            var categoriesIncome = await repo.AllReadonly<Income>().Where(x => x.IsActive && x.ApplicationUserId == userId).Select(c => c.Category.Name).Distinct().ToListAsync();
-
-            model.IncomesCategories.CategoriesName = categoriesIncome;
-
-            double sumIncomesByCategory;
-
-            foreach (var category in categoriesIncome)
-            {
-                sumIncomesByCategory = (double)repo.AllReadonly<Income>().Where(x => x.IsActive && x.ApplicationUserId == userId && x.Category.Name == category).Sum(x => x.Amount);
-
-                model.IncomesCategories.IncomesByCategoriesName.Add(sumIncomesByCategory);
-            }
-
+            await IncomesByCategories(userId, model);
 
             //Expenses by categories
+            await ExpensesByCategories(userId, model);
 
+            return model;
+        }
+
+        private async Task ExpensesByCategories(string userId, ViewModel model)
+        {
             model.ExpensesCategories = new ExpensesCategoriesViewModel();
 
             var categoriesExpense = await repo.AllReadonly<Expense>().Where(x => x.IsActive && x.ApplicationUserId == userId).Select(c => c.Category.Name).Distinct().ToListAsync();
@@ -69,8 +54,49 @@ namespace MoneyManager.Core.Services
 
                 model.ExpensesCategories.ExpensesByCategoriesName.Add(sumExpenseByCategory);
             }
+        }
 
-            return model;
+        private async Task IncomesByCategories(string userId, ViewModel model)
+        {
+            model.IncomesCategories = new IncomesCategoriesViewModel();
+
+            var categoriesIncome = await repo.AllReadonly<Income>().Where(x => x.IsActive && x.ApplicationUserId == userId).Select(c => c.Category.Name).Distinct().ToListAsync();
+
+            model.IncomesCategories.CategoriesName = categoriesIncome;
+
+            double sumIncomesByCategory;
+
+            foreach (var category in categoriesIncome)
+            {
+                sumIncomesByCategory = (double)repo.AllReadonly<Income>().Where(x => x.IsActive && x.ApplicationUserId == userId && x.Category.Name == category).Sum(x => x.Amount);
+
+                model.IncomesCategories.IncomesByCategoriesName.Add(sumIncomesByCategory);
+            }
+        }
+
+        private void IncomesAndExpensesForWeek(string userId, ViewModel model)
+        {
+            var incomesForWeek = repo.AllReadonly<Income>().Where(x => x.IsActive && x.ApplicationUserId == userId && (x.Date.Day <= DateTime.Today.Day && x.Date.Day >= DateTime.Today.AddDays(-6).Day)).Sum(x => x.Amount);
+
+            var expenseForWeek = repo.AllReadonly<Expense>().Where(x => x.IsActive && x.ApplicationUserId == userId && (x.Date.Day <= DateTime.Today.Day && x.Date.Day >= DateTime.Today.AddDays(-6).Day)).Sum(x => x.Amount);
+
+            model.IncomesAndExpensesForWeek = new IncomesAndExpensesForWeek();
+            model.IncomesAndExpensesForWeek.Income = incomesForWeek;
+            model.IncomesAndExpensesForWeek.Expense = expenseForWeek;
+        }
+
+        private void IncomesAndExpensesTotals(string userId, ViewModel model)
+        {
+            var incomes = repo.AllReadonly<Income>().Where(x => x.IsActive && x.ApplicationUserId == userId).Sum(x => x.Amount);
+
+            var expenses = repo.AllReadonly<Expense>().Where(x => x.IsActive && x.ApplicationUserId == userId).Sum(x => x.Amount);
+
+            var balance = Math.Abs(incomes - expenses);
+
+            model.Totals = new TotalViewModel();
+            model.Totals.IncomeTotal = incomes;
+            model.Totals.ExpenseTotal = expenses;
+            model.Totals.Balance = balance;
         }
     }
 }
