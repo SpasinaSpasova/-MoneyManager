@@ -10,7 +10,7 @@ namespace MoneyManager.Core.Contracts
         Task<List<ExpenseViewModel>> GetAllByUserIdAsync(string userId);
         Task<List<CategoryExpenseViewModel>> GetCategoriesExpenseAsync();
         Task<List<AccountViewModel>> GetAccountsByIdAsync(string userId);
-        Task AddExpenseAsync(AddExpenseViewModel model, string userId);
+        Task<bool> AddExpenseAsync(AddExpenseViewModel model, string userId);
         Task UploadAsync(Guid id, IFormFileCollection files);
         Task DeleteAsync(Guid id);
         Task<EditExpenseViewModel> GetForEditAsync(Guid id);

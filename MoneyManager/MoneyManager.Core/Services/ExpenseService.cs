@@ -17,30 +17,41 @@ namespace MoneyManager.Core.Services
             repo = _repo;
         }
 
-        public async Task AddExpenseAsync(AddExpenseViewModel model, string userId)
+        public async Task<bool> AddExpenseAsync(AddExpenseViewModel model, string userId)
         {
+            var account =  repo.AllReadonly<Account>().FirstOrDefault(x => x.Id == model.AccountId);
 
-            var entity = new Expense()
+            if (account != null)
             {
-                Amount = model.Amount,
-                Description = model.Description,
-                Date = model.Date,
-                ApplicationUserId = userId,
-                CategoryId = model.CategoryId,
-                AccountId = model.AccountId
-            };
+               
+                if (account.Amount>=model.Amount)
+                {
+                    var entity = new Expense()
+                    {
+                        Amount = model.Amount,
+                        Description = model.Description,
+                        Date = model.Date,
+                        ApplicationUserId = userId,
+                        CategoryId = model.CategoryId,
+                        AccountId = model.AccountId
+                    };
 
-            await repo.AddAsync(entity);
+                    await repo.AddAsync(entity);
 
-            await DecrementAccountAmountAsync(model.AccountId, model.Amount);
+                    await DecrementAccountAmountAsync(model.AccountId, model.Amount);
 
-            await repo.SaveChangesAsync();
+                    await repo.SaveChangesAsync();
 
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public async Task<List<AccountViewModel>> GetAccountsByIdAsync(string userId)
         {
-            return await repo.AllReadonly<Account>().Where(x => x.ApplicationUserId == userId && x.IsActive).OrderBy(x=>x.Name).Select(i => new AccountViewModel()
+            return await repo.AllReadonly<Account>().Where(x => x.ApplicationUserId == userId && x.IsActive && x.Amount > 0).OrderBy(x => x.Name).Select(i => new AccountViewModel()
             {
                 Id = i.Id,
                 Amount = i.Amount,
@@ -51,7 +62,7 @@ namespace MoneyManager.Core.Services
 
         public async Task<List<ExpenseViewModel>> GetAllByUserIdAsync(string userId)
         {
-            return await repo.AllReadonly<Expense>().Where(x => x.ApplicationUserId == userId && x.IsActive).OrderByDescending(x=>x.Date).Select(i => new ExpenseViewModel()
+            return await repo.AllReadonly<Expense>().Where(x => x.ApplicationUserId == userId && x.IsActive).OrderByDescending(x => x.Date).Select(i => new ExpenseViewModel()
             {
                 Id = i.Id,
                 Amount = i.Amount,
@@ -66,7 +77,7 @@ namespace MoneyManager.Core.Services
 
         public async Task<List<CategoryExpenseViewModel>> GetCategoriesExpenseAsync()
         {
-            return await repo.AllReadonly<CategoryExpense>().OrderBy(x=>x.Name).Select(x=>new CategoryExpenseViewModel()
+            return await repo.AllReadonly<CategoryExpense>().OrderBy(x => x.Name).Select(x => new CategoryExpenseViewModel()
             {
                 Id = x.Id,
                 Name = x.Name
@@ -95,15 +106,6 @@ namespace MoneyManager.Core.Services
             }
         }
 
-        private async Task DecrementAccountAmountAsync(Guid accountId, decimal decrement)
-        {
-            var entity = await repo.GetByIdAsync<Account>(accountId);
-            entity.Amount -= decrement;
-
-            repo.Update<Account>(entity);
-
-            await repo.SaveChangesAsync();
-        }
 
         public async Task DeleteAsync(Guid id)
         {
@@ -143,10 +145,10 @@ namespace MoneyManager.Core.Services
             var newAccount = await repo.GetByIdAsync<Account>(model.AccountId);
 
             if ((entity.Amount != model.Amount
-                && account.Amount < model.Amount)||(entity.Amount != model.Amount
+                && account.Amount < model.Amount) || (entity.Amount != model.Amount
                 && newAccount.Amount < model.Amount))
             {
-                return false; 
+                return false;
             }
 
             if (entity.AccountId != model.AccountId && entity.Amount != model.Amount)
@@ -179,6 +181,15 @@ namespace MoneyManager.Core.Services
             await repo.SaveChangesAsync();
 
             return true;
+        }
+        private async Task DecrementAccountAmountAsync(Guid accountId, decimal decrement)
+        {
+            var entity = await repo.GetByIdAsync<Account>(accountId);
+            entity.Amount -= decrement;
+
+            repo.Update<Account>(entity);
+
+            await repo.SaveChangesAsync();
         }
     }
 }

@@ -59,8 +59,6 @@ namespace MoneyManager.Controllers
 
             model.Accounts = await expenseService.GetAccountsByIdAsync(currentUserId);
 
-            var account = model.Accounts.FirstOrDefault(x => x.Id == model.AccountId);
-
 
             if (!ModelState.IsValid)
             {
@@ -76,16 +74,16 @@ namespace MoneyManager.Controllers
 
             try
             {
-                if (currentUserId != null && account != null)
+                if (currentUserId != null)
                 {
-                    if (account.Amount < model.Amount)
-                    {
+                    var result = await expenseService.AddExpenseAsync(model, currentUserId);
 
+                    if (result == false)
+                    {
                         ModelState.AddModelError("Amount", "The amount on the account is insufficient! Please enter a new amount, or select a different account!");
                         return View(model);
                     }
 
-                    await expenseService.AddExpenseAsync(model, currentUserId);
                 }
 
                 return RedirectToAction(nameof(All));
@@ -102,7 +100,7 @@ namespace MoneyManager.Controllers
         [HttpPost]
         public async Task<IActionResult> Upload([FromForm] Guid id, IFormFileCollection file)
         {
-
+            
             await expenseService.UploadAsync(id, file);
 
             return RedirectToAction(nameof(All));
@@ -150,7 +148,7 @@ namespace MoneyManager.Controllers
 
             var result = await expenseService.EditAsync(model);
 
-            if (result ==false)
+            if (result == false)
             {
                 ModelState.AddModelError("Amount", "The amount on the account is insufficient! Please enter a new amount, or select a different account!");
                 return View(model);
@@ -166,7 +164,7 @@ namespace MoneyManager.Controllers
         [HttpPost]
         public async Task<IActionResult> Cancel()
         {
-            return  RedirectToAction(nameof(All));
+            return RedirectToAction(nameof(All));
         }
     }
 }

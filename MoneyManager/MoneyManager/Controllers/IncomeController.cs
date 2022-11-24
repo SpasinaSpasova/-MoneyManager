@@ -125,7 +125,6 @@ namespace MoneyManager.Controllers
         [HttpPost]
         public async Task<IActionResult> Upload([FromForm] Guid id, IFormFileCollection file)
         {
-
             await incomeService.UploadAsync(id, file);
             return RedirectToAction(nameof(All));
 

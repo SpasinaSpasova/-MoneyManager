@@ -52,17 +52,9 @@
             </form>
             <form method="post" enctype="multipart/form-data" asp-controller="Expense" asp-action="Upload">
                 <input id="ph" class="mb-3" type="file" name="file" accept="image/png, image/jpeg, image/jpg" />
-                <button  class="fs-6 btn btn-success mb-3 p-2" type="submit" value="Upload" onclick="upl(event)">Upload Expense Image</button>
+                <button  class="fs-6 btn btn-success mb-3 p-2" type="submit" value="Upload">Upload Expense Image</button>
                 <input name="id" type="hidden" value="@expense.Id" />
             </form>
         </div>
     }
 </div>
-<script>
-    function upl(event){
-        if(document.querySelector("#ph").value==''){
-            alert("Please,choose file!");
-            event.preventDefault();
-        }
-    }
-</script>
