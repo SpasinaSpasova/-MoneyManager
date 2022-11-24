@@ -34,7 +34,13 @@ namespace MoneyManager.Controllers
                 return View(model);
             }
 
-            await accountService.AddAccountAsync(model, currentUserId);
+           var result= await accountService.AddAccountAsync(model, currentUserId);
+
+            if (result == false)
+            {
+                ModelState.AddModelError("Name", "Account exist!");
+                return View(model);
+            }
 
             return RedirectToAction(nameof(All));
 

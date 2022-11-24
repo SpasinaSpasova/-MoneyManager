@@ -36,7 +36,7 @@
                 <p class="mb-0">Amount: @String.Format("{0:N2}",@income.Amount) lv.</p>
                 <p class="mb-0">Account: @income.Account</p>
                 <p class="mb-0">Date: @income?.Date?.ToShortDateString()</p>
-                @if (income.Description != null)
+                @if (@income.Description != null)
                 {
                     <p class="mb-0">Description: @income.Description</p>
                 }

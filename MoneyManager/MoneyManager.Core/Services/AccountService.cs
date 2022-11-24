@@ -24,19 +24,28 @@ namespace MoneyManager.Core.Services
                 ApplicationUserId = i.ApplicationUserId
             }).ToListAsync();
         }
-        public async Task AddAccountAsync(AddAccountViewModel model, string userId)
+        public async Task<bool> AddAccountAsync(AddAccountViewModel model, string userId)
         {
+            var accounts = await repo.AllReadonly<Account>().Where(x => x.ApplicationUserId == userId && x.IsActive).OrderBy(x => x.Name).ToListAsync();
 
-            var entity = new Account()
+            if (!accounts.Any(x => x.Name.ToLower() == model.Name.ToLower()))
             {
-                Amount = model.Amount,
-                Name = model.Name,
-                ApplicationUserId = userId
-            };
 
-            await repo.AddAsync(entity);
+                var entity = new Account()
+                {
+                    Amount = model.Amount,
+                    Name = model.Name,
+                    ApplicationUserId = userId
+                };
 
-            await repo.SaveChangesAsync();
+                await repo.AddAsync(entity);
+
+                await repo.SaveChangesAsync();
+
+                return true;
+            }
+
+            return false;
 
         }
         public async Task DeleteAsync(Guid id)

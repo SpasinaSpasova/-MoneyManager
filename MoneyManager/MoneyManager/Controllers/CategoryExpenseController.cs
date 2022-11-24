@@ -36,7 +36,7 @@ namespace MoneyManager.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(AddCategoryExpenseViewModel model)
         {
-
+           
             if (!ModelState.IsValid)
             {
                 return View(model);

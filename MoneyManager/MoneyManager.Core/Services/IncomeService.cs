@@ -67,8 +67,8 @@ namespace MoneyManager.Core.Services
         {
             return await repo.AllReadonly<CategoryIncome>().OrderBy(x => x.Name).Select(c => new CategoryIncomeViewModel()
             {
-                Id=c.Id,
-                Name=c.Name
+                Id = c.Id,
+                Name = c.Name
 
             }).ToListAsync();
         }
@@ -125,6 +125,7 @@ namespace MoneyManager.Core.Services
         {
             var income = await repo.GetByIdAsync<Income>(id);
 
+
             return new EditIncomeViewModel()
             {
                 Id = income.Id,
@@ -134,6 +135,8 @@ namespace MoneyManager.Core.Services
                 CategoryId = income.CategoryId,
                 Date = income.Date
             };
+
+
         }
 
         public async Task EditAsync(EditIncomeViewModel model)

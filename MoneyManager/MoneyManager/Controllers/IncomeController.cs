@@ -60,6 +60,7 @@ namespace MoneyManager.Controllers
 
             model.Accounts = await incomeService.GetAccountsByIdAsync(currentUserId);
 
+
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -110,6 +111,7 @@ namespace MoneyManager.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(EditIncomeViewModel model)
         {
+
             if (!ModelState.IsValid)
             {
                 return View(model);

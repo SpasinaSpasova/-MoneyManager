@@ -1,5 +1,6 @@
 using HouseRentingSystem.Infrastructure.Data.Common;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MoneyManager.Core.Contracts;
 using MoneyManager.Core.Services;
@@ -13,6 +14,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 {
@@ -32,6 +34,9 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.LoginPath = "/User/Login";
     options.LogoutPath= "/User/Logout";
 });
+
+builder.Services.AddMvc(options =>
+    options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
 
 builder.Services.AddScoped<IRepository, Repository>();
 builder.Services.AddScoped<IIncomeService, IncomeService>();

@@ -36,7 +36,7 @@ namespace MoneyManager.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(AddCategoryIncomeViewModel model)
         {
-
+           
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -66,7 +66,6 @@ namespace MoneyManager.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(EditCategoryIncomeViewModel model)
         {
-
             if (!ModelState.IsValid)
             {
                 return View(model);
