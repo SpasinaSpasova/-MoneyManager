@@ -5,7 +5,7 @@ using MoneyManager.Infrastructure.Data.Entities;
 
 namespace MoneyManager.Infrastructure.Data.Configuration
 {
-    internal class ApplicationUserConfiguration : IEntityTypeConfiguration<ApplicationUser>
+    public class ApplicationUserConfiguration : IEntityTypeConfiguration<ApplicationUser>
     {
         public void Configure(EntityTypeBuilder<ApplicationUser> builder)
         {

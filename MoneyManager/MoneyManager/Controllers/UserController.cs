@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MoneyManager.Core.Models.User;
 using MoneyManager.Infrastructure.Data.Entities;
+using System.Security.Claims;
 
 namespace MoneyManager.Controllers
 {
@@ -10,13 +11,17 @@ namespace MoneyManager.Controllers
     public class UserController : Controller
     {
         private readonly UserManager<ApplicationUser> userManager;
-
         private readonly SignInManager<ApplicationUser> signInManager;
+        private readonly RoleManager<IdentityRole> roleManager;
 
-        public UserController(UserManager<ApplicationUser> _userManager, SignInManager<ApplicationUser> _signInManager)
+        public UserController(
+            UserManager<ApplicationUser> _userManager,
+            SignInManager<ApplicationUser> _signInManager,
+            RoleManager<IdentityRole> _roleManager)
         {
-            this.userManager = _userManager;
-            this.signInManager = _signInManager;
+            userManager = _userManager;
+            signInManager = _signInManager;
+            roleManager = _roleManager;
         }
 
         [HttpGet]
@@ -86,8 +91,8 @@ namespace MoneyManager.Controllers
             {
                 UserName = model.UserName,
                 Email = model.Email,
-                FirstName=model.FirstName,
-                LastName=model.LastName
+                FirstName = model.FirstName,
+                LastName = model.LastName
             };
 
             var result = await userManager.CreateAsync(user, model.Password);
@@ -111,6 +116,30 @@ namespace MoneyManager.Controllers
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        public async Task<IActionResult> AddUserToRole()
+        {
+            string email = User.FindFirstValue(ClaimTypes.Email);
+
+            var roleName = "User";
+            var roleExists = await roleManager.RoleExistsAsync(roleName);
+
+            if (!roleExists)
+            {
+                await roleManager.CreateAsync(new IdentityRole("User"));
+            }
+
+
+            var user = await userManager.FindByEmailAsync(email);
+            var result = await userManager.AddToRoleAsync(user, roleName);
+
+            if (result.Succeeded)
+            {
+                return RedirectToAction("Dashboard", "Home");
+            }
 
             return RedirectToAction("Index", "Home");
         }

@@ -19,6 +19,8 @@ namespace MoneyManager.Infrastructure.Data
             builder.ApplyConfiguration(new IncomeConfiguration());
             builder.ApplyConfiguration(new ExpenseConfiguration());
             builder.ApplyConfiguration(new ApplicationUserConfiguration());
+            builder.ApplyConfiguration(new ApplicationUserRoleConfiguration());
+            builder.ApplyConfiguration(new ApplicationUserAndRole());
 
             base.OnModelCreating(builder);
         }
