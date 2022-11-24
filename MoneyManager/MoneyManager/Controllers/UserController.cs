@@ -99,7 +99,7 @@ namespace MoneyManager.Controllers
 
             if (result.Succeeded)
             {
-
+                await AddUserToRole(model.Email);
                 return RedirectToAction("Login", "User");
             }
 
@@ -120,10 +120,8 @@ namespace MoneyManager.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public async Task<IActionResult> AddUserToRole()
+        private async Task AddUserToRole(string email)
         {
-            string email = User.FindFirstValue(ClaimTypes.Email);
-
             var roleName = "User";
             var roleExists = await roleManager.RoleExistsAsync(roleName);
 
@@ -132,17 +130,10 @@ namespace MoneyManager.Controllers
                 await roleManager.CreateAsync(new IdentityRole("User"));
             }
 
-
             var user = await userManager.FindByEmailAsync(email);
             var result = await userManager.AddToRoleAsync(user, roleName);
 
-            if (result.Succeeded)
-            {
-                return RedirectToAction("Dashboard", "Home");
-            }
-
-            return RedirectToAction("Index", "Home");
-        }
+        } 
 
     }
 }

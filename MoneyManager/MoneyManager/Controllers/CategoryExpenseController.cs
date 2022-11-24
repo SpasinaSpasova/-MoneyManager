@@ -5,7 +5,7 @@ using MoneyManager.Core.Models.CategoryExpense;
 
 namespace MoneyManager.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "User")]
     public class CategoryExpenseController : Controller
     {
         private readonly ICategoryExpenseService categoryExpenseService;

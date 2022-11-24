@@ -6,7 +6,7 @@ using System.Security.Claims;
 
 namespace MoneyManager.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "User")]
     public class ExpenseController : Controller
     {
         private readonly IExpenseService expenseService;
