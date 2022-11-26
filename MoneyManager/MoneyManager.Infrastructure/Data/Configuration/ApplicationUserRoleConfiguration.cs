@@ -14,18 +14,33 @@ namespace MoneyManager.Infrastructure.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<IdentityRole> builder)
         {
-             builder.HasData(CreateRole());
+             builder.HasData(CreateRoles());
         }
 
-        private IdentityRole CreateRole()
+        private List<IdentityRole> CreateRoles()
         {
-            return new IdentityRole()
-            {
+            var roles = new List<IdentityRole>();
+
+            var userRole=new IdentityRole{
                 Id = "ff4d8b6c-2017-4adf-b3e0-3d297229ff50",
                 Name = "User",
                 NormalizedName = "USER",
                 ConcurrencyStamp = "23cf9348-0c8e-4b74-9c27-0de02fe00463"
             };
+
+            roles.Add(userRole);
+
+            var adminRole = new IdentityRole
+            {
+                Id = "dca26d61-afe6-44ba-b9fc-f4b912b8acd0",
+                Name = "Admin",
+                NormalizedName = "ADMIN",
+                ConcurrencyStamp = "f036bdaf-9396-4bee-be22-ffe49bbb648a"
+            };
+
+            roles.Add(adminRole);
+
+            return roles;
         }
     }
 }

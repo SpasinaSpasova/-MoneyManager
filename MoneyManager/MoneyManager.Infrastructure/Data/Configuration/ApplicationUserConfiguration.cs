@@ -47,6 +47,22 @@ namespace MoneyManager.Infrastructure.Data.Configuration
 
             applicationUsers.Add(secondApplicationUser);
 
+
+            var adminApplicationUser = new ApplicationUser()
+            {
+                Id = "06408ed5-1bfe-4e54-9269-b9dfce131f44",
+                FirstName = "Admin",
+                LastName = "Admin",
+                Email = "admin@mail.com",
+                NormalizedEmail = "ADMIN@MAIL.COM",
+                UserName = "admin",
+                NormalizedUserName = "ADMIN"
+            };
+
+            adminApplicationUser.PasswordHash = hasher.HashPassword(adminApplicationUser, "admin123");
+
+            applicationUsers.Add(adminApplicationUser);
+
             return applicationUsers;
         }
     }

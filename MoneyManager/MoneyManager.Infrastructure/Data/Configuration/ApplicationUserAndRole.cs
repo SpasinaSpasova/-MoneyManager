@@ -36,6 +36,14 @@ namespace MoneyManager.Infrastructure.Data.Configuration
 
             userWithRoles.Add(secondUser);
 
+            var adminUser = new IdentityUserRole<string>()
+            {
+                RoleId = "dca26d61-afe6-44ba-b9fc-f4b912b8acd0",
+                UserId = "06408ed5-1bfe-4e54-9269-b9dfce131f44"
+            };
+
+            userWithRoles.Add(adminUser);
+
             return userWithRoles;
         }
     }
