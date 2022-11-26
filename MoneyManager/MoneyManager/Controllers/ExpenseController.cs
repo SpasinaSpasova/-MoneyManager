@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Ganss.Xss;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MoneyManager.Core.Contracts;
 using MoneyManager.Core.Models.Expense;
@@ -59,6 +60,13 @@ namespace MoneyManager.Controllers
 
             model.Accounts = await expenseService.GetAccountsByIdAsync(currentUserId);
 
+            var sanitizer = new HtmlSanitizer();
+            model.Description = sanitizer.Sanitize(model.Description);
+
+            if (model.Description.Length==0)
+            {
+                model.Description = null;
+            }
 
             if (!ModelState.IsValid)
             {
@@ -139,6 +147,14 @@ namespace MoneyManager.Controllers
             model.Categories = await expenseService.GetCategoriesExpenseAsync();
 
             model.Accounts = await expenseService.GetAccountsByIdAsync(currentUserId);
+
+            var sanitizer = new HtmlSanitizer();
+            model.Description = sanitizer.Sanitize(model.Description);
+
+            if (model.Description.Length == 0)
+            {
+                model.Description = null;
+            }
 
 
             if (!ModelState.IsValid)

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Ganss.Xss;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MoneyManager.Core.Contracts;
 using MoneyManager.Core.Models.Income;
@@ -60,6 +61,14 @@ namespace MoneyManager.Controllers
 
             model.Accounts = await incomeService.GetAccountsByIdAsync(currentUserId);
 
+            var sanitizer = new HtmlSanitizer();
+            model.Description = sanitizer.Sanitize(model.Description);
+
+            if (model.Description.Length == 0)
+            {
+                model.Description = null;
+            }
+
 
             if (!ModelState.IsValid)
             {
@@ -111,6 +120,13 @@ namespace MoneyManager.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(EditIncomeViewModel model)
         {
+            var sanitizer = new HtmlSanitizer();
+            model.Description = sanitizer.Sanitize(model.Description);
+
+            if (model.Description.Length == 0)
+            {
+                model.Description = null;
+            }
 
             if (!ModelState.IsValid)
             {

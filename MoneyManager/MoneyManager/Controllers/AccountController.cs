@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Ganss.Xss;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MoneyManager.Core.Contracts;
 using MoneyManager.Core.Models.Account;
@@ -28,6 +29,10 @@ namespace MoneyManager.Controllers
         public async Task<IActionResult> Add(AddAccountViewModel model)
         {
             var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var sanitizer = new HtmlSanitizer();
+            model.Name = sanitizer.Sanitize(model.Name);
+
 
             if (!ModelState.IsValid)
             {
@@ -80,6 +85,8 @@ namespace MoneyManager.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(EditAccountViewModel model)
         {
+            var sanitizer = new HtmlSanitizer();
+            model.Name = sanitizer.Sanitize(model.Name);
 
             if (!ModelState.IsValid)
             {

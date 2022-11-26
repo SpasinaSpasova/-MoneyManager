@@ -27,14 +27,13 @@ namespace MoneyManager.Controllers
             return RedirectToAction(nameof(Dashboard));
         }
 
-
         public async Task<ActionResult> Dashboard()
         {
             var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
 
             var model = await homeService.DashboardByUserId(currentUserId);
-            
+
             return View(model);
 
         }

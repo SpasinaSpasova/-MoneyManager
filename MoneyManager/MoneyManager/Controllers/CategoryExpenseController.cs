@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Ganss.Xss;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MoneyManager.Core.Contracts;
 using MoneyManager.Core.Models.CategoryExpense;
@@ -36,7 +37,10 @@ namespace MoneyManager.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(AddCategoryExpenseViewModel model)
         {
-           
+            var sanitizer = new HtmlSanitizer();
+            model.Name = sanitizer.Sanitize(model.Name);
+
+
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -66,6 +70,9 @@ namespace MoneyManager.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(EditCategoryExpenseViewModel model)
         {
+            var sanitizer = new HtmlSanitizer();
+            model.Name = sanitizer.Sanitize(model.Name);
+
 
             if (!ModelState.IsValid)
             {

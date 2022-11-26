@@ -30,7 +30,7 @@
                         @foreach (var category in Model)
                         {
                             <tr>
-                                <td>@category.Name</td>
+                                <td>@Html.Raw(@category.Name)</td>
                                 <td>
                                     <div class="inline">
                                         @using (Html.BeginForm("Edit", "CategoryIncome", FormMethod.Get))

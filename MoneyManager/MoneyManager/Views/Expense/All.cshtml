@@ -38,7 +38,7 @@
                 <p class="mb-0">Date: @expense?.Date?.ToShortDateString()</p>
                 @if (expense.Description != null)
                 {
-                    <p class="mb-0">Description: @expense.Description</p>
+                    <p class="mb-0">Description: @Html.Raw(@expense.Description)</p>
                 }
             </div>
 

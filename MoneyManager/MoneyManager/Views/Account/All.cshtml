@@ -31,7 +31,7 @@
                         @foreach (var account in Model)
                         {
                             <tr>
-                                <td>@account.Name</td>
+                                <td>@Html.Raw(@account.Name)</td>
                                 <td>@String.Format("{0:N2}",account.Amount) lv.</td>
                                 <td>
                                     <div class="inline">

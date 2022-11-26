@@ -63,6 +63,7 @@ namespace MoneyManager.Controllers
 
             var user = await userManager.FindByNameAsync(model.UserName);
 
+
             if (user != null)
             {
                 var result = await signInManager.PasswordSignInAsync(user, model.Password, isPersistent: false, lockoutOnFailure: false);
@@ -71,7 +72,7 @@ namespace MoneyManager.Controllers
                 {
                     return RedirectToAction("Dashboard", "Home");
                 }
-
+              
             }
 
             ModelState.AddModelError("", "Invalid login!");
@@ -133,7 +134,7 @@ namespace MoneyManager.Controllers
             var user = await userManager.FindByEmailAsync(email);
             var result = await userManager.AddToRoleAsync(user, roleName);
 
-        } 
+        }
 
     }
 }
