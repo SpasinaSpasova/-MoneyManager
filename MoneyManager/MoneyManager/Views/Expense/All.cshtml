@@ -43,12 +43,12 @@
             </div>
 
             <form method="get" class="input-group-sm" asp-controller="Expense" asp-action="Edit">
-                <input type="submit" value="Edit" class="btn-warning fs-6 btn btn-success mb-3 p-2" />
+                <input type="submit" value="Edit" class="btn-warning fs-6 btn btn-success mb-3 p-2" style="display: block; margin: 0 auto;width:25%" />
                 <input name="id" type="hidden" value="@expense.Id" />
             </form>
             <form method="post" class="input-group-sm" asp-controller="Expense" asp-action="Delete">
                 <input name="id" type="hidden" value="@expense.Id" />
-                <button type="submit" class="fs-6 btn btn-danger mb-3 p-2" onclick="return confirm('Are you sure you want to delete this item?')">Delete</button>
+                <input style="display: block; margin: 0 auto;width:25%" type="submit" class="fs-6 btn btn-danger mb-3 p-2" onclick="return confirm('Are you sure you want to delete this item?')" value="Delete" />
             </form>
             <form method="post" enctype="multipart/form-data" asp-controller="Expense" asp-action="Upload">
                 <input id="ph" class="mb-3" type="file" name="file" accept="image/png, image/jpeg, image/jpg" />
