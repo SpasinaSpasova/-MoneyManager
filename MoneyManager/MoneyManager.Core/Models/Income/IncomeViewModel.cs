@@ -1,4 +1,6 @@
-﻿namespace MoneyManager.Core.Models.Income
+﻿using MoneyManager.Core.Contracts;
+
+namespace MoneyManager.Core.Models.Income
 {
     public class IncomeViewModel
     {
@@ -16,5 +18,6 @@
 
         public string Account { get; set; } = null!;
         public string ApplicationUserId { get; set; } = null!;
+
     }
 }

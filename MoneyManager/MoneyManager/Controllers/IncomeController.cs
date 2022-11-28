@@ -75,7 +75,7 @@ namespace MoneyManager.Controllers
                 return View(model);
             }
 
-            if (model.CategoryId==new Guid { } || model.AccountId == new Guid { })
+            if (model.CategoryId == new Guid { } || model.AccountId == new Guid { })
             {
                 ModelState.AddModelError("", "Something went wrong.");
 
@@ -103,9 +103,11 @@ namespace MoneyManager.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(Guid id)
         {
-            var model = await incomeService.GetForEditAsync(id);
 
             var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var model = await incomeService.GetForEditAsync(id);
+
 
             if (currentUserId != null)
             {

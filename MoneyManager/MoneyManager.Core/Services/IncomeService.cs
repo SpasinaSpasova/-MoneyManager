@@ -125,7 +125,6 @@ namespace MoneyManager.Core.Services
         {
             var income = await repo.GetByIdAsync<Income>(id);
 
-
             return new EditIncomeViewModel()
             {
                 Id = income.Id,
