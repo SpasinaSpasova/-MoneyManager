@@ -20,8 +20,4 @@
     <ProjectReference Include="..\MoneyManager.Core\MoneyManager.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Areas\Admin\Models\" />
-  </ItemGroup>
-
 </Project>
