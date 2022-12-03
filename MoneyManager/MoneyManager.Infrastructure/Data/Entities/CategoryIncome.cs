@@ -12,5 +12,7 @@ namespace MoneyManager.Infrastructure.Data.Entities
         [StringLength(CategoryNameMaxLength)]
         public string Name { get; set; } = null!;
 
+        public bool IsActive { get; set; } = true;
+
     }
 }

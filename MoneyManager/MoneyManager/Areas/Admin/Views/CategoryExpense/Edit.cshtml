@@ -1,0 +1,37 @@
+﻿@model EditCategoryExpenseViewModel;
+
+@{
+    ViewBag.Title = "Edit Category Expense";
+}
+
+<div class="nav-link bg-white">
+    <h2 class="text-center">@ViewBag.Title</h2>
+</div>
+
+
+
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <hr />
+        <form method="post">
+            @Html.HiddenFor(m=>m.Id)
+            <div class="mb-3">
+                <label asp-for="@Model.Name" class="form-label">Category Name</label>
+                <input asp-for="@Model.Name" class="form-control" aria-required="true" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="text-center row">
+                <input class="fs-6 btn btn-warning mb-3 p-2" style="display: block; margin: 0 auto;width:250px" type="submit" value="Edit" />
+            </div>
+        </form>
+        <form method="post" asp-action="Cancel" asp-controller="CategoryExpense">
+            <div class="text-center row">
+                <input class="fs-6 btn btn-success mb-3 p-2" style="display: block; margin: 0 auto;width:250px" type="submit" value="Cancel" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

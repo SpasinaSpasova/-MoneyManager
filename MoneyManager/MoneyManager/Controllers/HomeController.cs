@@ -24,6 +24,11 @@ namespace MoneyManager.Controllers
                 return View();
             }
 
+            if (User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Index", "Admin", new { area = "Admin" });
+            }
+
             return RedirectToAction(nameof(Dashboard));
         }
 

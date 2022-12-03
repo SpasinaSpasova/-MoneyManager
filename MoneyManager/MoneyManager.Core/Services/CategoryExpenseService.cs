@@ -15,7 +15,7 @@ namespace MoneyManager.Core.Services
         }
         public async Task<bool> AddCategoryAsync(AddCategoryExpenseViewModel model)
         {
-            var allCategories = await repo.AllReadonly<CategoryExpense>().ToListAsync();
+            var allCategories = await repo.AllReadonly<CategoryExpense>().Where(x=>x.IsActive).ToListAsync();
 
             if (!allCategories.Any(x => x.Name.ToLower() == model.Name.ToLower()))
             {
@@ -33,7 +33,16 @@ namespace MoneyManager.Core.Services
 
             return false;
         }
+        public async Task DeleteAsync(Guid id)
+        {
+            var category = await repo.GetByIdAsync<CategoryExpense>(id);
+            if (category != null)
+            {
+                category.IsActive = false;
 
+                await repo.SaveChangesAsync();
+            }
+        }
         public async Task EditAsync(EditCategoryExpenseViewModel model)
         {
             var entity = await repo.GetByIdAsync<CategoryExpense>(model.Id);
@@ -46,7 +55,7 @@ namespace MoneyManager.Core.Services
 
         public async Task<List<CategoryExpenseViewModel>> GetAllAsync()
         {
-            return await repo.AllReadonly<CategoryExpense>().OrderBy(x => x.Name).Select(i => new CategoryExpenseViewModel()
+            return await repo.AllReadonly<CategoryExpense>().OrderBy(x => x.Name).Where(x=>x.IsActive==true).Select(i => new CategoryExpenseViewModel()
             {
                 Id = i.Id,
                 Name = i.Name

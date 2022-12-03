@@ -65,7 +65,7 @@ namespace MoneyManager.Core.Services
 
         public async Task<List<CategoryIncomeViewModel>> GetCategoriesIncomeAsync()
         {
-            return await repo.AllReadonly<CategoryIncome>().OrderBy(x => x.Name).Select(c => new CategoryIncomeViewModel()
+            return await repo.AllReadonly<CategoryIncome>().OrderBy(x => x.Name).Where(x=>x.IsActive==true).Select(c => new CategoryIncomeViewModel()
             {
                 Id = c.Id,
                 Name = c.Name

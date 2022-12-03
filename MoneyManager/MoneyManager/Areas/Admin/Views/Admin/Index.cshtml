@@ -1,0 +1,18 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div id="adminHome" class="mt-4 p-5 bg-light text-center">
+    <h2 class="display-4">Hello, Admin!</h2>
+    <p class="lead mb-1 mt-3">
+        This is your administrator area - you can <b style="color:red">delete</b>, <b style="color:darkorange">edit</b> and <b style="color:green">add</b> categories for <b>incomes</b> and <b>expenses</b>.
+    </p>
+    <p style="color:red;" class="lead mt-1">
+        If you want to add <b>incomes, expenses and accounts</b> in the system you have to log in as "user"!
+    </p>
+    <hr class="my-4">
+    <a  asp-area="Admin" asp-controller="CategoryIncome" asp-action="All"
+       class="btn btn-success btn-lg">All Income categories</a>
+    <a asp-area="Admin" asp-controller="CategoryExpense" asp-action="All"
+       class="btn  btn-success btn-lg">All Expense categories</a>
+</div>

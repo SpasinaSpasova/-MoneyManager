@@ -17,7 +17,7 @@ body {
     margin-bottom: 60px;
 }
 
-#welcome {
+#welcome,#adminHome {
     position: absolute;
     top: 50%;
     left: 50%;

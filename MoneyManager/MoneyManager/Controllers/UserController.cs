@@ -70,9 +70,17 @@ namespace MoneyManager.Controllers
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Dashboard", "Home");
+                    if (model.UserName.ToLower()=="admin")
+                    {
+                        return RedirectToAction("Index", "Admin", new { area = "Admin" });
+                    }
+                    else 
+                    {
+                        return RedirectToAction("Dashboard", "Home");
+
+                    }
                 }
-              
+
             }
 
             ModelState.AddModelError("", "Invalid login!");

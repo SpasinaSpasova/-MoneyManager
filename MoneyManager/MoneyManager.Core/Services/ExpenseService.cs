@@ -77,7 +77,7 @@ namespace MoneyManager.Core.Services
 
         public async Task<List<CategoryExpenseViewModel>> GetCategoriesExpenseAsync()
         {
-            return await repo.AllReadonly<CategoryExpense>().OrderBy(x => x.Name).Select(x => new CategoryExpenseViewModel()
+            return await repo.AllReadonly<CategoryExpense>().OrderBy(x => x.Name).Where(x=>x.IsActive==true).Select(x => new CategoryExpenseViewModel()
             {
                 Id = x.Id,
                 Name = x.Name

@@ -16,7 +16,7 @@ namespace MoneyManager.Core.Services
 
         public async Task<bool> AddCategoryAsync(AddCategoryIncomeViewModel model)
         {
-            var allCategories = await repo.AllReadonly<CategoryIncome>().ToListAsync();
+            var allCategories = await repo.AllReadonly<CategoryIncome>().Where(x=>x.IsActive).ToListAsync();
 
             if (!allCategories.Any(x => x.Name.ToLower() == model.Name.ToLower()))
             {
@@ -47,11 +47,21 @@ namespace MoneyManager.Core.Services
 
         public async Task<List<CategoryIncomeViewModel>> GetAllAsync()
         {
-            return await repo.AllReadonly<CategoryIncome>().OrderBy(x => x.Name).Select(i => new CategoryIncomeViewModel()
+            return await repo.AllReadonly<CategoryIncome>().OrderBy(x => x.Name).Where(x=>x.IsActive==true).Select(i => new CategoryIncomeViewModel()
             {
                 Id = i.Id,
                 Name = i.Name
             }).ToListAsync();
+        }
+        public async Task DeleteAsync(Guid id)
+        {
+            var category = await repo.GetByIdAsync<CategoryIncome>(id);
+            if (category != null)
+            {
+                category.IsActive = false;
+
+                await repo.SaveChangesAsync();
+            }
         }
 
         public async Task<EditCategoryIncomeViewModel> GetForEditAsync(Guid id)

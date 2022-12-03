@@ -8,7 +8,7 @@ using System.Security.Claims;
 
 namespace MoneyManager.Controllers
 {
-    [Authorize(Roles = "User")]
+    [Authorize(Roles ="User")]
     public class IncomeController : Controller
     {
 
