@@ -7,7 +7,7 @@ using System.Security.Claims;
 
 namespace MoneyManager.Controllers
 {
-    [Authorize(Roles ="User")]
+    [Authorize(Roles = "User")]
     public class AccountController : Controller
     {
         private readonly IAccountService accountService;
@@ -20,7 +20,7 @@ namespace MoneyManager.Controllers
         public async Task<IActionResult> Add()
         {
             var model = new AddAccountViewModel();
-        
+
             return View(model);
 
         }
@@ -39,7 +39,7 @@ namespace MoneyManager.Controllers
                 return View(model);
             }
 
-           var result= await accountService.AddAccountAsync(model, currentUserId);
+            var result = await accountService.AddAccountAsync(model, currentUserId);
 
             if (result == false)
             {
@@ -79,7 +79,15 @@ namespace MoneyManager.Controllers
         {
             var model = await accountService.GetForEditAsync(id);
 
-            return View(model);
+            if (model.Id != new Guid())
+            {
+                return View(model);
+
+            }
+            else
+            {
+                return RedirectToAction(nameof(All));
+            }
         }
 
         [HttpPost]

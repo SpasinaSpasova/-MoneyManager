@@ -19,12 +19,12 @@ namespace MoneyManager.Core.Services
 
         public async Task<bool> AddExpenseAsync(AddExpenseViewModel model, string userId)
         {
-            var account =  repo.AllReadonly<Account>().FirstOrDefault(x => x.Id == model.AccountId);
+            var account = repo.AllReadonly<Account>().FirstOrDefault(x => x.Id == model.AccountId);
 
             if (account != null)
             {
-               
-                if (account.Amount>=model.Amount)
+
+                if (account.Amount >= model.Amount)
                 {
                     var entity = new Expense()
                     {
@@ -127,15 +127,23 @@ namespace MoneyManager.Core.Services
         {
             var expense = await repo.GetByIdAsync<Expense>(id);
 
-            return new EditExpenseViewModel()
+            if (expense != null)
             {
-                Id = expense.Id,
-                Amount = expense.Amount,
-                Description = expense.Description,
-                AccountId = expense.AccountId,
-                CategoryId = expense.CategoryId,
-                Date = expense.Date
-            };
+                return new EditExpenseViewModel()
+                {
+                    Id = expense.Id,
+                    Amount = expense.Amount,
+                    Description = expense.Description,
+                    AccountId = expense.AccountId,
+                    CategoryId = expense.CategoryId,
+                    Date = expense.Date
+                };
+
+            }
+            else
+            {
+                return new EditExpenseViewModel();
+            }
         }
 
         public async Task<bool> EditAsync(EditExpenseViewModel model)

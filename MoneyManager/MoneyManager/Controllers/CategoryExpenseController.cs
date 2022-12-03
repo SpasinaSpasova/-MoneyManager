@@ -64,7 +64,15 @@ namespace MoneyManager.Controllers
         {
             var model = await categoryExpenseService.GetForEditAsync(id);
 
-            return View(model);
+            if (model.Id != new Guid())
+            {
+                return View(model);
+
+            }
+            else
+            {
+                return RedirectToAction(nameof(All));
+            }
         }
 
         [HttpPost]

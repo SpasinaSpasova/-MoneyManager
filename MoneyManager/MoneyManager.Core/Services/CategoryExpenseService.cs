@@ -56,12 +56,19 @@ namespace MoneyManager.Core.Services
         public async Task<EditCategoryExpenseViewModel> GetForEditAsync(Guid id)
         {
             var category = await repo.GetByIdAsync<CategoryExpense>(id);
-
-            return new EditCategoryExpenseViewModel()
+            if (category != null)
             {
-                Id = category.Id,
-                Name = category.Name
-            };
+                return new EditCategoryExpenseViewModel()
+                {
+                    Id = category.Id,
+                    Name = category.Name
+                };
+
+            }
+            else
+            {
+                return new EditCategoryExpenseViewModel();
+            }
         }
     }
 }

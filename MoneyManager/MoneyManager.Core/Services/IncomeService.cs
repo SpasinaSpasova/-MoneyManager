@@ -125,16 +125,23 @@ namespace MoneyManager.Core.Services
         {
             var income = await repo.GetByIdAsync<Income>(id);
 
-            return new EditIncomeViewModel()
+            if (income != null)
             {
-                Id = income.Id,
-                Amount = income.Amount,
-                Description = income.Description,
-                AccountId = income.AccountId,
-                CategoryId = income.CategoryId,
-                Date = income.Date
-            };
 
+                return new EditIncomeViewModel()
+                {
+                    Id = income.Id,
+                    Amount = income.Amount,
+                    Description = income.Description,
+                    AccountId = income.AccountId,
+                    CategoryId = income.CategoryId,
+                    Date = income.Date
+                };
+            }
+            else
+            {
+                return new EditIncomeViewModel();
+            }
 
         }
 

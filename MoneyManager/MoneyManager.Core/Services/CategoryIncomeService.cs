@@ -57,12 +57,19 @@ namespace MoneyManager.Core.Services
         public async Task<EditCategoryIncomeViewModel> GetForEditAsync(Guid id)
         {
             var category = await repo.GetByIdAsync<CategoryIncome>(id);
-
-            return new EditCategoryIncomeViewModel()
+            if (category != null)
             {
-                Id = category.Id,
-                Name = category.Name
-            };
+                return new EditCategoryIncomeViewModel()
+                {
+                    Id = category.Id,
+                    Name = category.Name
+                };
+
+            }
+            else
+            {
+                return new EditCategoryIncomeViewModel();
+            }
         }
     }
 }

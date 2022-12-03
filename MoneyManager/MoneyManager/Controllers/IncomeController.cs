@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MoneyManager.Core.Contracts;
 using MoneyManager.Core.Models.Income;
+using MoneyManager.Core.Services;
 using System.Security.Claims;
 
 namespace MoneyManager.Controllers
@@ -103,20 +104,27 @@ namespace MoneyManager.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(Guid id)
         {
-
-            var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
             var model = await incomeService.GetForEditAsync(id);
 
-
-            if (currentUserId != null)
+            if (model.Id != new Guid())
             {
+                var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-                model.Categories = await incomeService.GetCategoriesIncomeAsync();
-                model.Accounts = await incomeService.GetAccountsByIdAsync(currentUserId);
+                if (currentUserId != null)
+                {
+
+                    model.Categories = await incomeService.GetCategoriesIncomeAsync();
+                    model.Accounts = await incomeService.GetAccountsByIdAsync(currentUserId);
+                }
+
+                return View(model);
+
             }
-
-            return View(model);
+            else
+            {
+                ModelState.AddModelError("", "You do not have access!");
+                return RedirectToAction(nameof(All));
+            }
         }
 
         [HttpPost]

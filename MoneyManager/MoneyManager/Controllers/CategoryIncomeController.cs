@@ -46,9 +46,9 @@ namespace MoneyManager.Controllers
                 return View(model);
             }
 
-            var result= await categoryIncomeService.AddCategoryAsync(model);
+            var result = await categoryIncomeService.AddCategoryAsync(model);
 
-            if (result==false)
+            if (result == false)
             {
                 ModelState.AddModelError("Name", "Category exist!");
                 return View(model);
@@ -63,8 +63,15 @@ namespace MoneyManager.Controllers
         public async Task<IActionResult> Edit(Guid id)
         {
             var model = await categoryIncomeService.GetForEditAsync(id);
+            if (model.Id != new Guid())
+            {
 
-            return View(model);
+                return View(model);
+            }
+            else
+            {
+                return RedirectToAction(nameof(All));
+            }
         }
 
         [HttpPost]

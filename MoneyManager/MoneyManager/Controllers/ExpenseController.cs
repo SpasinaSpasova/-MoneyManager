@@ -63,7 +63,7 @@ namespace MoneyManager.Controllers
             var sanitizer = new HtmlSanitizer();
             model.Description = sanitizer.Sanitize(model.Description);
 
-            if (model.Description.Length==0)
+            if (model.Description.Length == 0)
             {
                 model.Description = null;
             }
@@ -108,7 +108,7 @@ namespace MoneyManager.Controllers
         [HttpPost]
         public async Task<IActionResult> Upload([FromForm] Guid id, IFormFileCollection file)
         {
-            
+
             await expenseService.UploadAsync(id, file);
 
             return RedirectToAction(nameof(All));
@@ -125,18 +125,29 @@ namespace MoneyManager.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(Guid id)
         {
+
             var model = await expenseService.GetForEditAsync(id);
 
-            var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-            if (currentUserId != null)
+            if (model.Id!=new Guid())
             {
+                var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-                model.Categories = await expenseService.GetCategoriesExpenseAsync();
-                model.Accounts = await expenseService.GetAccountsByIdAsync(currentUserId);
+                if (currentUserId != null)
+                {
+
+                    model.Categories = await expenseService.GetCategoriesExpenseAsync();
+                    model.Accounts = await expenseService.GetAccountsByIdAsync(currentUserId);
+                }
+
+                return View(model);
+
+            }
+            else
+            {
+                ModelState.AddModelError("", "You do not have access!");
+                return RedirectToAction(nameof(All));
             }
 
-            return View(model);
         }
 
         [HttpPost]

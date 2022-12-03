@@ -65,13 +65,20 @@ namespace MoneyManager.Core.Services
         public async Task<EditAccountViewModel> GetForEditAsync(Guid id)
         {
             var account = await repo.GetByIdAsync<Account>(id);
-
-            return new EditAccountViewModel()
+            if (account != null)
             {
-                Id = account.Id,
-                Name = account.Name,
-                Amount = account.Amount
-            };
+                return new EditAccountViewModel()
+                {
+                    Id = account.Id,
+                    Name = account.Name,
+                    Amount = account.Amount
+                };
+
+            }
+            else
+            {
+                return new EditAccountViewModel();
+            }
         }
 
         public async Task EditAsync(EditAccountViewModel model)
