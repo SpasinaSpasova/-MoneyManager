@@ -51,6 +51,7 @@ namespace MoneyManager.Areas.Admin.Controllers
                 return View(model);
             }
 
+            TempData["message"] = "You have successfully added a new expense category!";
 
             return RedirectToAction(nameof(All));
 
@@ -61,6 +62,7 @@ namespace MoneyManager.Areas.Admin.Controllers
         {
             await categoryExpenseService.DeleteAsync(id);
 
+            TempData["message"] = "You have successfully deleted the expense category!";
             return RedirectToAction(nameof(All));
         }
 
@@ -97,6 +99,8 @@ namespace MoneyManager.Areas.Admin.Controllers
             }
 
             await categoryExpenseService.EditAsync(model);
+
+            TempData["message"] = "You have successfully edited the expense category!";
 
             return RedirectToAction(nameof(All));
 

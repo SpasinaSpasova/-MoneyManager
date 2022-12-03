@@ -89,6 +89,7 @@ namespace MoneyManager.Controllers
                 {
                     await incomeService.AddIncomeAsync(model, currentUserId);
                 }
+                TempData["message"] = "You have successfully added a new income!";
 
                 return RedirectToAction(nameof(All));
             }
@@ -145,6 +146,9 @@ namespace MoneyManager.Controllers
 
             await incomeService.EditAsync(model);
 
+            TempData["message"] = "You have successfully edited the income!";
+
+
             return RedirectToAction(nameof(All));
         }
 
@@ -159,6 +163,8 @@ namespace MoneyManager.Controllers
         public async Task<IActionResult> Delete([FromForm] Guid id)
         {
             await incomeService.DeleteAsync(id);
+
+            TempData["message"] = "You have successfully deleted the income!";
 
             return RedirectToAction(nameof(All));
         }

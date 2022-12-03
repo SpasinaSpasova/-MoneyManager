@@ -52,6 +52,8 @@ namespace MoneyManager.Areas.Admin.Controllers
                 return View(model);
             }
 
+            TempData["message"] = "You have successfully added a new income category!";
+
 
             return RedirectToAction(nameof(All));
 
@@ -61,6 +63,8 @@ namespace MoneyManager.Areas.Admin.Controllers
         public async Task<IActionResult> Delete([FromForm] Guid id)
         {
             await categoryIncomeService.DeleteAsync(id);
+
+            TempData["message"] = "You have successfully deleted the income category!";
 
             return RedirectToAction(nameof(All));
         }
@@ -82,6 +86,7 @@ namespace MoneyManager.Areas.Admin.Controllers
             }
             else
             {
+
                 return RedirectToAction(nameof(All));
             }
         }
@@ -98,6 +103,8 @@ namespace MoneyManager.Areas.Admin.Controllers
             }
 
             await categoryIncomeService.EditAsync(model);
+
+            TempData["message"] = "You have successfully edited the income category!";
 
             return RedirectToAction(nameof(All));
 

@@ -54,6 +54,7 @@ namespace MoneyManager.Controllers
                 return View(model);
             }
 
+            TempData["message"] = "You have successfully added a new expense category!";
 
             return RedirectToAction(nameof(All));
 
@@ -88,6 +89,9 @@ namespace MoneyManager.Controllers
             }
 
             await categoryExpenseService.EditAsync(model);
+
+            TempData["message"] = "You have successfully edited the expense category!";
+
 
             return RedirectToAction(nameof(All));
 

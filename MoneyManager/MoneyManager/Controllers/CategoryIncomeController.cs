@@ -54,6 +54,8 @@ namespace MoneyManager.Controllers
                 return View(model);
             }
 
+            TempData["message"] = "You have successfully added a new income category!";
+
 
             return RedirectToAction(nameof(All));
 
@@ -86,6 +88,8 @@ namespace MoneyManager.Controllers
             }
 
             await categoryIncomeService.EditAsync(model);
+
+            TempData["message"] = "You have successfully edited the income category!";
 
             return RedirectToAction(nameof(All));
 

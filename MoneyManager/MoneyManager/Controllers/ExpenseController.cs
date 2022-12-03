@@ -48,6 +48,7 @@ namespace MoneyManager.Controllers
 
                 return View(model);
             }
+
             return RedirectToAction(nameof(All));
         }
 
@@ -94,6 +95,8 @@ namespace MoneyManager.Controllers
 
                 }
 
+                TempData["message"] = "You have successfully added a new expense!";
+
                 return RedirectToAction(nameof(All));
             }
             catch (Exception)
@@ -110,7 +113,7 @@ namespace MoneyManager.Controllers
         {
 
             await expenseService.UploadAsync(id, file);
-
+                        
             return RedirectToAction(nameof(All));
         }
 
@@ -118,6 +121,8 @@ namespace MoneyManager.Controllers
         public async Task<IActionResult> Delete([FromForm] Guid id)
         {
             await expenseService.DeleteAsync(id);
+
+            TempData["message"] = "You have successfully deleted the expense!";
 
             return RedirectToAction(nameof(All));
         }
@@ -182,6 +187,7 @@ namespace MoneyManager.Controllers
             }
             else
             {
+                TempData["message"] = "You have successfully edited the expense!";
 
                 return RedirectToAction(nameof(All));
             }

@@ -12,15 +12,14 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                    <a class="navbar-brand nav-link bg-white" asp-controller="Admin" asp-action="Index">MoneyManager-Administration</a>
-                
+                <a class="navbar-brand nav-link bg-white" asp-controller="Admin" asp-action="Index">MoneyManager-Administration</a>
+
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                      
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
@@ -29,6 +28,16 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
+            @if (TempData["message"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    @TempData["message"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                        <span hidden>&#10006;</span>
+                    </button>
+                </div>
+            }
+
             @RenderBody()
         </main>
     </div>

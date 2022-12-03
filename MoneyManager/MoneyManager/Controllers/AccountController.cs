@@ -47,6 +47,9 @@ namespace MoneyManager.Controllers
                 return View(model);
             }
 
+            TempData["message"] = "You have successfully added a new account!";
+
+
             return RedirectToAction(nameof(All));
 
         }
@@ -70,6 +73,8 @@ namespace MoneyManager.Controllers
         public async Task<IActionResult> Delete(Guid id)
         {
             await accountService.DeleteAsync(id);
+
+            TempData["message"] = "You have successfully deleted the account!";
 
             return RedirectToAction(nameof(All));
         }
@@ -102,6 +107,8 @@ namespace MoneyManager.Controllers
             }
 
             await accountService.EditAsync(model);
+
+            TempData["message"] = "You have successfully edited the account!";
 
             return RedirectToAction(nameof(All));
 
