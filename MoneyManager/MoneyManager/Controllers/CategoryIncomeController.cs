@@ -6,7 +6,7 @@ using MoneyManager.Core.Models.CategoryIncome;
 
 namespace MoneyManager.Controllers
 {
-    [Authorize(Roles = "User")]
+    [Authorize(Roles = "User,Admin")]
     public class CategoryIncomeController : Controller
     {
         private readonly ICategoryIncomeService categoryIncomeService;

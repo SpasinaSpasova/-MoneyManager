@@ -7,7 +7,7 @@ using System.Security.Claims;
 
 namespace MoneyManager.Controllers
 {
-    [Authorize(Roles = "User")]
+    [Authorize(Roles = "User,Admin")]
     public class AccountController : Controller
     {
         private readonly IAccountService accountService;

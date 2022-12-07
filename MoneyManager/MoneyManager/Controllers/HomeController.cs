@@ -6,7 +6,7 @@ using System.Security.Claims;
 
 namespace MoneyManager.Controllers
 {
-    [Authorize(Roles = "User")]
+    [Authorize(Roles = "User,Admin")]
     public class HomeController : Controller
     {
         private readonly IHomeService homeService;

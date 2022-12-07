@@ -8,10 +8,7 @@
         This is your administrator area - you can <b style="color:red">delete</b>, <b style="color:darkorange">edit</b> and <b style="color:green">add</b> categories for <b>incomes</b> and <b>expenses</b>.
     </p>
     <p class="lead mt-1">
-        If you want, you can add <b>incomes, expenses and accounts</b> in the system also!
-    </p>
-    <p class="lead mt-1">
-        You can see your <b style="color:green;">dashboard</b> when you click <a asp-area="admin" asp-controller="Admin" asp-action="Dashboard">here</a>!
+        If you want, you can add <b>incomes, expenses,accounts and categories</b> when you click <a asp-area="" asp-controller="Home" asp-action="Dashboard">here</a>!
     </p>
     <hr class="my-4">
     <a asp-area="Admin" asp-controller="CategoryIncome" asp-action="All"
@@ -19,14 +16,4 @@
        <span>|</span>
     <a asp-area="Admin" asp-controller="CategoryExpense" asp-action="All"
        class="btn  btn-success btn-lg">All Expense categories</a>
-    <br>
-    <br>
-    <a asp-area="Admin" asp-controller="Income" asp-action="All"
-       class="btn  btn-success btn-lg">All incomes</a>
-    <span>|</span>
-    <a asp-area="Admin" asp-controller="Expense" asp-action="All"
-       class="btn  btn-success btn-lg">All expenses</a>
-    <span>|</span>
-    <a asp-area="Admin" asp-controller="Account" asp-action="All"
-       class="btn  btn-success btn-lg">All accounts</a>
 </div>
