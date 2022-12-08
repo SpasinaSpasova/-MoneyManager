@@ -8,4 +8,4 @@ Money manager is a final project to complete a training course ASP.NET Core Adva
 - Bootstrap, HTML 5 Canvas
 ## Application Flow
 When the user starts the app he's redirected to the home page.
-![This is an image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/MoneyManager/Screenshots/home.png)
+![This is an image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/home.png)
