@@ -33,7 +33,11 @@ The "Incomes" buttons shows all incomes for current user.
 ![This is all incomes image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/AllIncomes.png)
 
 The user can edit, delete and upload image to an income with buttons "Edit", "Delete", "Choose file" and "Upload Income Image".
-With button "Add New Income" user is redirect to page in which should fill in the information for add new income.
+With button "Add New Income" user is redirect to page in which should fill in the information for add new income. If the user wants, he can add new category or new account after clicking the buttons in this form- he is redirect to other pages.
 
 ![This is add incomes image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/AddIncome.png)
 
+Here is the other pages:
+![This is add category image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/AddCategoryIncome.png)
+
+![This is add account image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/AddAccount.png)
