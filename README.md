@@ -88,3 +88,13 @@ The forms for adding new income or expense category looks like:
  - He also can add new account and categories and see statistic dashboard after every update
 
 **Note that when the admin wants to act like a ordinary user he is redirect to default layout and can add, edit, delete incomes, expenses, accounts and categories- in default layout he only can edit it. If he want to delete category he should redirect back to admin area when he click the "Hello" to the right of the navbar!!!**
+
+When admin click the button "All Income categories" in his home page he is redirect to this page, where he can edit and delete income categories or add new:
+
+![This is income categories admin image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/ICAdmin.png)
+
+When admin click the button "All Expense categories" in his home page he is redirect to this page, where he can edit and delete expense categories or add new:
+
+![This is expense categories admin image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/ECAdmin.png)
+
+Any change in two types of categories is visualized for all users. **When category is deleted all expenses and incomes does not deleted.**
