@@ -7,4 +7,5 @@ Money manager is a final project to complete a training course ASP.NET Core Adva
 - MSSQL 2019, VS22
 - Bootstrap, HTML 5 Canvas
 ## Application Flow
-1. James Madison
+When the user starts the app he's redirected to the home page.
+![image](https://user-images.githubusercontent.com/75899012/206462431-6bc6b246-5424-4bde-b6a5-acb71d79cc70.png)
