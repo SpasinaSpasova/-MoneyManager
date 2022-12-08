@@ -18,7 +18,7 @@ After successful registration, the user is redirected to login page.
 
 ![This is a login and register image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/login_register.png)
 
-After successful login, the user is redirected to the statistic board.
+After successful login, the user is redirected to the statistic board which is updated after every action like add, delete, edit and so on.
 
 ![This is a statistic board image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/user_dashboard.png)
 
@@ -40,7 +40,7 @@ With button "Edit" the user has been redirected to the following page for edit. 
 
 When user click the button "Choose file" this appears:
 
-![This is edit income image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/UploadImage.png)
+![This is upload income image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/UploadImage.png)
 
 With button "Add New Income" user is redirect to page in which should fill in the information for add new income. If the user wants, he can add new category or new account after clicking the buttons in this form- he is redirect to other pages.
 
@@ -58,3 +58,23 @@ Here is the other pages:
 
 
 **The functionallity for expenses is same as the incomes! With small difference between  the redirecting of the pages.**
+
+When the user clicks the Accounts button from navbar he is redirect to this page: - can see all his accounts, edit and delete them.
+
+![This is all accounts image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/AllAccounts.png)
+
+If the user click buttons "Add New Account" he is redirect to fill in the form:
+
+![This is add account image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/AddAccount.png)
+
+If the user click buttons "Edit" he is redirect to fill in the form:
+
+![This is edit account image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/EditAccount.png)
+
+If the user click buttons "Delete" he delete the account, but do not delete the incomes and expenses that are on this account.
+
+When the user clicks the Income Categories or Expense Categories button from navbar he is redirect to these pages:
+
+![This is categories image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/Categories.png)
+
+**Note that the user can only add new and edit categories, but can not delete them!!!**
