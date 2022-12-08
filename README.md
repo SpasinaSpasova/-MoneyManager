@@ -98,3 +98,6 @@ When admin click the button "All Expense categories" in his home page he is redi
 ![This is expense categories admin image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/ECAdmin.png)
 
 Any change in two types of categories is visualized for all users. **When category is deleted all expenses and incomes does not deleted. And the statistics board visualized expense and incomes by deleted categories, because this incomes and expenses are made**
+
+## Database
+![This is database image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/Database.png)
