@@ -43,6 +43,6 @@ Here is the other pages:
 
 ![This is add account image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/AddAccount.png)
 
-After successful adding of new income the user is redirect to all incomes.
-After successful adding of new category income the user is redirect to all income categories.
-After successful adding of new account the user is redirect to all accounts.
+- After successful adding of new income the user is redirect to all incomes.
+- After successful adding of new category income the user is redirect to all income categories.
+- After successful adding of new account the user is redirect to all accounts.
