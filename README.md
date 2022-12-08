@@ -14,7 +14,26 @@ When the user or admin starts the app he's redirected to the home page.
 The navbar has three buttons for login and register, which loads the login and register form. 
 Login form asks for the user's username and password. 
 The register form asks for:Username, First name, Last name, Email Address, Password,Confirm Password.
+After successful registration, the user is redirected to login page.
 
-![This is a login image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/login_register.png)
+![This is a login and register image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/login_register.png)
 
+After successful login, the user is redirected to the statistic board.
+
+![This is a statistic board image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/user_dashboard.png)
+
+If the loged user is admin, he is redirect to the admin home page which look like:
+
+![This is a admin home image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/admin_home.png)
+
+The navbar for users content these buttons: Incomes, Expenses, Accounts, Income Categories and Expense Categories.
+
+The "Incomes" buttons shows all incomes for current user.
+
+![This is all incomes image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/AllIncomes.png)
+
+The user can edit, delete and upload image to an income with buttons "Edit", "Delete", "Choose file" and "Upload Income Image".
+With button "Add New Income" user is redirect to page in which should fill in the information for add new income.
+
+![This is add incomes image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/AddIncome.png)
 
