@@ -14,7 +14,7 @@ When the user or admin starts the app he's redirected to the home page.
 The navbar has three buttons for login and register, which loads the login and register form. 
 Login form asks for the user's username and password. 
 The register form asks for:Username, First name, Last name, Email Address, Password,Confirm Password.
-<div style="display:inline-block;">
-![This is a login image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/login.png)
-![This is a register image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/register.png)
- </div>
+
+![This is a login image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/login_register.png)
+
+
