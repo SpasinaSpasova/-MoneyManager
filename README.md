@@ -17,4 +17,5 @@ The register form asks for:Username, First name, Last name, Email Address, Passw
 
 Login form                 |  Register form
 :-------------------------:|:-------------------------:
-![This is a login image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/login.png)  |  ![This is a register image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/register.png)
+![This is a login image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/login.png)  
+|![This is a register image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/register.png)
