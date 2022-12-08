@@ -40,7 +40,7 @@ With button "Edit" the user has been redirected to the following page for edit. 
 
 When user click the button "Choose file" this appears:
 
-![This is edit income image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/UploadImage.png)
+![This is upload income image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/UploadImage.png)
 
 With button "Add New Income" user is redirect to page in which should fill in the information for add new income. If the user wants, he can add new category or new account after clicking the buttons in this form- he is redirect to other pages.
 
