@@ -9,8 +9,8 @@ Money manager is a final project to complete a training course ASP.NET Core Adva
 ## Application Flow
 When the user or admin starts the app he's redirected to the home page.
 
-![This is an image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/home.png)
+![This is an home image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/home.png)
 
 The navbar has three buttons for login and register, which loads the login and register form. Login form asks for the user's username and password. The register form asks for:Username, First name, Last name, Email Address, Password,Confirm Password.
-![This is an image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/login.png)
-![This is an image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/register.png)
+![This is an login image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/login.png)
+![This is an register image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/register.png)
