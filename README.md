@@ -15,6 +15,6 @@ The navbar has three buttons for login and register, which loads the login and r
 Login form asks for the user's username and password. 
 The register form asks for:Username, First name, Last name, Email Address, Password,Confirm Password.
 
-![This is a login image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/login-register.png)
+![This is a login image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/login_register.png)
 
 
