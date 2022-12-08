@@ -56,9 +56,6 @@ Here is the other pages:
 - After successful adding of new category income the user is redirect to all income categories.
 - After successful adding of new account the user is redirect to all accounts.
 
-
-**The functionallity for expenses is same as the incomes! With small difference between  the redirecting of the pages.**
-
 When the user clicks the Accounts button from navbar he is redirect to this page: - can see all his accounts, edit and delete them.
 
 ![This is all accounts image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/AllAccounts.png)
@@ -82,5 +79,7 @@ When the user clicks the Income Categories or Expense Categories button from nav
 The forms for adding new income or expense category looks like: 
 
 ![This is new categories for two types image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/NewCategory.png)
+
+**The functionallity for expenses is same as the incomes! With small difference between  the redirecting of the pages.**
 
 **Note that when the admin wants to act like a ordinary user he is redirect to default layout and can add, edit, delete incomes, expenses, accounts and categories- in default layout he only can edit it. If he want to delete category he should redirect back to admin area when he click the "Hello" to the right of the navbar!!!**
