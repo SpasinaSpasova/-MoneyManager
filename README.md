@@ -46,3 +46,6 @@ Here is the other pages:
 - After successful adding of new income the user is redirect to all incomes.
 - After successful adding of new category income the user is redirect to all income categories.
 - After successful adding of new account the user is redirect to all accounts.
+
+
+**The functionallity for expenses is same as the incomes! With small difference between  the redirecting of the pages.**
