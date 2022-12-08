@@ -78,3 +78,9 @@ When the user clicks the Income Categories or Expense Categories button from nav
 ![This is categories image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/Categories.png)
 
 **Note that the user can only add new and edit categories, but can not delete them!!!**
+
+The forms for adding new income or expense category looks like: 
+
+![This is new categories image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/NewCategory.png)
+
+**Note that when the admin wants to act like a ordinary user he is redirect to default layout and can add, edit, delete incomes, expenses, accounts and categories- in default layout he only can edit it. If he want to delete category he should redirect back to admin area when he click the "Hello" to the right of the navbar!!!**
