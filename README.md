@@ -46,7 +46,7 @@ With button "Add New Income" user is redirect to page in which should fill in th
 
 ![This is add incomes image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/AddIncome.png)
 
-Here is the other pages:
+These are the other pages:
 
 ![This is add category image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/AddCategoryIncome.png)
 
