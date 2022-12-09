@@ -80,6 +80,10 @@ The forms for adding new income or expense category looks like:
 
 ![This is new categories for two types image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/NewCategory.png)
 
+The forms for edit new income or expense category looks like: 
+
+![This is new categories for two types image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/EditCategory.png)
+
 **The functionallity for expenses is same as the incomes! With small difference between  the redirecting of the pages.**
  - To view all expenses he need to click the "Expenses" button in navbar
  - User can edit, delete and upload image to expense
