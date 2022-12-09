@@ -56,7 +56,7 @@ These are the other pages:
 - After successful adding of new category income the user is redirect to all income categories.
 - After successful adding of new account the user is redirect to all accounts.
 
-When the user clicks the Accounts button from navbar he is redirect to this page: - can see all his accounts, edit and delete them.
+When the user clicks the Accounts button from navbar he is redirect to this page: - can see all his accounts, edit and delete them and also add new.
 
 ![This is all accounts image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/AllAccounts.png)
 
