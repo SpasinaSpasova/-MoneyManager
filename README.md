@@ -80,11 +80,18 @@ The forms for adding new income or expense category looks like:
 
 ![This is new categories for two types image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/NewCategory.png)
 
+The forms for edit new income or expense category looks like: 
+
+![This is edit categories for two types image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/EditCategory.png)
+
 **The functionallity for expenses is same as the incomes! With small difference between  the redirecting of the pages.**
  - To view all expenses he need to click the "Expenses" button in navbar
  - User can edit, delete and upload image to expense
  - When user add new expense, he is redirect to all expenses page
  - He can add new account and category when he is in "add new expense" form
+ 
+ ![This is all expenses image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/AllExpenses.png)
+ 
  - He also can add new account and categories and see statistic dashboard after every update
 
 **Note that when the admin wants to act like a ordinary user he is redirect to default layout and can add, edit, delete incomes, expenses, accounts and categories- in default layout he only can edit it. If he want to delete category he should redirect back to admin area when he click the "Hello" to the right of the navbar!!!**
@@ -97,7 +104,7 @@ When admin click the button "All Expense categories" in his home page he is redi
 
 ![This is expense categories admin image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/ECAdmin.png)
 
-Any change in two types of categories is visualized for all users. **When category is deleted all expenses and incomes does not deleted. And the statistics board visualized expense and incomes by deleted categories, because this incomes and expenses are made**
+Any change in two types of categories is visualized for all users. **When category is deleted all expenses and incomes does not deleted. And the statistics board visualized expense and incomes by deleted categories also -not only by active, because this incomes and expenses are made already.**
 
 ## Database
 ![This is database image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/Database.png)
