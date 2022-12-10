@@ -1,4 +1,4 @@
-using HouseRentingSystem.Infrastructure.Data.Common;
+using MoneyManager.Infrastructure.Data.Common;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

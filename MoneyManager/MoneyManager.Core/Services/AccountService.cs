@@ -1,4 +1,4 @@
-﻿using HouseRentingSystem.Infrastructure.Data.Common;
+﻿using MoneyManager.Infrastructure.Data.Common;
 using Microsoft.EntityFrameworkCore;
 using MoneyManager.Core.Contracts;
 using MoneyManager.Core.Models.Account;

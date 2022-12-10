@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using MoneyManager.Infrastructure.Data;
 using System.Linq.Expressions;
 
-namespace HouseRentingSystem.Infrastructure.Data.Common
+namespace MoneyManager.Infrastructure.Data.Common
 {
     /// <summary>
     /// Implementation of repository access methods

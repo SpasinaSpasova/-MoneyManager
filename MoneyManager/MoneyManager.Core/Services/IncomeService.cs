@@ -1,4 +1,4 @@
-﻿using HouseRentingSystem.Infrastructure.Data.Common;
+﻿using MoneyManager.Infrastructure.Data.Common;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using MoneyManager.Core.Contracts;
@@ -50,6 +50,7 @@ namespace MoneyManager.Core.Services
 
         public async Task<List<IncomeViewModel>> GetAllByUserIdAsync(string userId)
         {
+
             return await repo.AllReadonly<Income>().Where(x => x.ApplicationUserId == userId && x.IsActive).OrderByDescending(x => x.Date).Select(i => new IncomeViewModel()
             {
                 Id = i.Id,
