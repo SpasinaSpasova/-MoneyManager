@@ -1,7 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using MoneyManager.Core.Contracts;
 using MoneyManager.Core.Services;
+using MoneyManager.Models;
+using System.Diagnostics;
 using System.Security.Claims;
 
 namespace MoneyManager.Controllers
@@ -10,9 +14,13 @@ namespace MoneyManager.Controllers
     public class HomeController : Controller
     {
         private readonly IHomeService homeService;
-        public HomeController(IHomeService _homeService)
+
+        private readonly ILogger logger;
+
+        public HomeController(IHomeService _homeService, ILogger<HomeController> _logger)
         {
             homeService = _homeService;
+            logger = _logger;
         }
 
         [AllowAnonymous]
@@ -41,6 +49,16 @@ namespace MoneyManager.Controllers
 
             return View(model);
 
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            var feature = this.HttpContext.Features.Get<IExceptionHandlerFeature>();
+
+            logger.LogError(feature.Error, "TraceIdentifier: {0}", Activity.Current?.Id ?? HttpContext.TraceIdentifier);
+
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
