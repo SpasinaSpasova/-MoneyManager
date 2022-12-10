@@ -115,7 +115,7 @@ Any change in two types of categories is visualized for all users. **When catego
 You don't have to do anything in particular to start the project, except to consider the following things:
 
 - **You need to uncomment the commented lines in fowder Configuration to seed the database first!!!**
-- **You need to add connection string for the database!!!***
+- **You need to add connection string for the database!!!**
 
 ## Database
 ![This is database image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/Database.png)
