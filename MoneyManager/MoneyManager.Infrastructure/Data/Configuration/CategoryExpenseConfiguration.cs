@@ -6,6 +6,7 @@ namespace MoneyManager.Infrastructure.Data.Configuration
 {
     public class CategoryExpenseConfiguration : IEntityTypeConfiguration<CategoryExpense>
     {
+        //Uncomment the commented lines
         public void Configure(EntityTypeBuilder<CategoryExpense> builder)
         {
             //builder.HasData(CreateCategoriesExpenses());

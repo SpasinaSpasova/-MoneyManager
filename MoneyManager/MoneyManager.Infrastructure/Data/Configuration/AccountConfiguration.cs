@@ -6,6 +6,7 @@ namespace MoneyManager.Infrastructure.Data.Configuration
 {
     public class AccountConfiguration: IEntityTypeConfiguration<Account>
     {
+        //Uncomment the commented lines
         public void Configure(EntityTypeBuilder<Account> builder)
         {
             //builder.HasData(CreateAccounts());

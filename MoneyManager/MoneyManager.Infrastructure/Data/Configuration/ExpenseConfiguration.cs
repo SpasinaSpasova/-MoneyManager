@@ -6,6 +6,7 @@ namespace MoneyManager.Infrastructure.Data.Configuration
 {
     internal class ExpenseConfiguration : IEntityTypeConfiguration<Expense>
     {
+        //Uncomment the commented lines
         public void Configure(EntityTypeBuilder<Expense> builder)
         {
            // builder.HasData(CreateExpenses());
