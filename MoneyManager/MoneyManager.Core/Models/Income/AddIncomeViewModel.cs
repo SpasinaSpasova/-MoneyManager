@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using MoneyManager.Core.Models.Account;
 using MoneyManager.Core.Models.CategoryIncome;
-using MoneyManager.Core.Contracts;
 
 namespace MoneyManager.Core.Models.Income
 {
