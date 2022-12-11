@@ -33,6 +33,7 @@ namespace MoneyManager.Core.Services
 
             return false;
         }
+
         public async Task DeleteAsync(Guid id)
         {
             var category = await repo.GetByIdAsync<CategoryExpense>(id);
@@ -43,6 +44,7 @@ namespace MoneyManager.Core.Services
                 await repo.SaveChangesAsync();
             }
         }
+
         public async Task EditAsync(EditCategoryExpenseViewModel model)
         {
             var entity = await repo.GetByIdAsync<CategoryExpense>(model.Id);
