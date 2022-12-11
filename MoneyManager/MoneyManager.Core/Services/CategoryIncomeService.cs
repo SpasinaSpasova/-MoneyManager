@@ -53,6 +53,7 @@ namespace MoneyManager.Core.Services
                 Name = i.Name
             }).ToListAsync();
         }
+
         public async Task DeleteAsync(Guid id)
         {
             var category = await repo.GetByIdAsync<CategoryIncome>(id);
