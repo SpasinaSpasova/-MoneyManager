@@ -6,6 +6,7 @@ using MoneyManager.Infrastructure.Data;
 using MoneyManager.Infrastructure.Data.Entities;
 using MoneyManager.Core.Models.Income;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Internal;
 
 namespace MoneyManager.UnitTests
 {
@@ -443,6 +444,304 @@ namespace MoneyManager.UnitTests
             Assert.That(editVM.Description, Is.EqualTo(income.Description));
             Assert.That(editVM.Amount, Is.EqualTo(income.Amount));
             Assert.That(editVM.Date, Is.EqualTo(income.Date));
+
+        }
+
+        [Test]
+        public async Task UploadImageToIncomeAsync()
+        {
+            var repo = new Repository(applicationDbContext);
+            incomeService = new IncomeService(repo);
+
+            ApplicationUser user = new ApplicationUser()
+            {
+                Id = "ab110557-1dfa-4db5-8d63-e24cbf87ff2d",
+                FirstName = "user1",
+                LastName = "user1"
+            };
+
+            Account account = new Account()
+            {
+                Id = new Guid("25c81ad4-b580-43e9-a4b8-111e19053283"),
+                Amount = 50.20m,
+                Name = "Account",
+                ApplicationUserId = "ab110557-1dfa-4db5-8d63-e24cbf87ff2d",
+                ApplicationUser = user
+            };
+
+            Income income = new Income()
+            {
+                Id = new Guid("f2712406-43b4-46df-90be-933e106fb91c"),
+                Amount = 20,
+                Description = "test",
+                Date = DateTime.UtcNow,
+                CategoryId = new Guid("302837e6-5dbc-4d24-ba17-8815c119c7e0"),
+                Account = account,
+                AccountId = account.Id,
+                ApplicationUser = user,
+                ApplicationUserId = user.Id,
+
+            };
+
+            await repo.AddAsync<Income>(income);
+            await repo.SaveChangesAsync();
+
+            IFormFileCollection files= new FormFileCollection();
+
+            await incomeService.UploadAsync(income.Id,files);
+
+            Assert.That(income.Photo, Is.Null);
+
+        }
+
+        [Test]
+        public async Task EditIncomeAmountAsync()
+        {
+            var repo = new Repository(applicationDbContext);
+            incomeService = new IncomeService(repo);
+
+            ApplicationUser user = new ApplicationUser()
+            {
+                Id = "ab110557-1dfa-4db5-8d63-e24cbf87ff2d",
+                FirstName = "user1",
+                LastName = "user1"
+            };
+
+            Account account = new Account()
+            {
+                Id = new Guid("25c81ad4-b580-43e9-a4b8-111e19053283"),
+                Amount = 50.20m,
+                Name = "Account",
+                ApplicationUserId = "ab110557-1dfa-4db5-8d63-e24cbf87ff2d",
+                ApplicationUser = user
+            };
+
+            Income income = new Income()
+            {
+                Id = new Guid("f2712406-43b4-46df-90be-933e106fb91c"),
+                Amount = 20,
+                Description = "test",
+                Date = DateTime.UtcNow,
+                CategoryId = new Guid("302837e6-5dbc-4d24-ba17-8815c119c7e0"),
+                Account = account,
+                AccountId = account.Id,
+                ApplicationUser = user,
+                ApplicationUserId = user.Id,
+
+            };
+
+            await repo.AddAsync<Account>(account);
+            await repo.AddAsync<Income>(income);
+            await repo.SaveChangesAsync();
+
+            EditIncomeViewModel editVM = new EditIncomeViewModel()
+            {
+                Id = income.Id,
+                Amount = 10,
+                Description = "test",
+                Date = DateTime.UtcNow,
+                CategoryId = new Guid("302837e6-5dbc-4d24-ba17-8815c119c7e0"),
+                AccountId = account.Id,
+            };
+
+            await incomeService.EditAsync(editVM);
+
+            Assert.That(account.Amount, Is.EqualTo(40.20));
+            Assert.That(income.Amount, Is.EqualTo(10));
+        }
+
+        [Test]
+        public async Task EditIncomeWithNoChangesAsync()
+        {
+            var repo = new Repository(applicationDbContext);
+            incomeService = new IncomeService(repo);
+
+            ApplicationUser user = new ApplicationUser()
+            {
+                Id = "ab110557-1dfa-4db5-8d63-e24cbf87ff2d",
+                FirstName = "user1",
+                LastName = "user1"
+            };
+
+            Account account = new Account()
+            {
+                Id = new Guid("25c81ad4-b580-43e9-a4b8-111e19053283"),
+                Amount = 50.20m,
+                Name = "Account",
+                ApplicationUserId = "ab110557-1dfa-4db5-8d63-e24cbf87ff2d",
+                ApplicationUser = user
+            };
+
+            Income income = new Income()
+            {
+                Id = new Guid("f2712406-43b4-46df-90be-933e106fb91c"),
+                Amount = 20,
+                Description = "test",
+                Date = DateTime.UtcNow,
+                CategoryId = new Guid("302837e6-5dbc-4d24-ba17-8815c119c7e0"),
+                Account = account,
+                AccountId = account.Id,
+                ApplicationUser = user,
+                ApplicationUserId = user.Id,
+
+            };
+
+            await repo.AddAsync<Account>(account);
+            await repo.AddAsync<Income>(income);
+            await repo.SaveChangesAsync();
+
+            EditIncomeViewModel editVM = new EditIncomeViewModel()
+            {
+                Id = income.Id,
+                Amount = income.Amount,
+                Description = income.Description,
+                Date = DateTime.UtcNow,
+                CategoryId = new Guid("302837e6-5dbc-4d24-ba17-8815c119c7e0"),
+                AccountId = account.Id,
+            };
+
+            await incomeService.EditAsync(editVM);
+
+            Assert.That(account.Amount, Is.EqualTo(50.20));
+            Assert.That(income.Amount, Is.EqualTo(20));
+            Assert.That(income.Description, Is.EqualTo("test"));
+            Assert.That(income.CategoryId, Is.EqualTo(new Guid("302837e6-5dbc-4d24-ba17-8815c119c7e0")));
+            Assert.That(income.AccountId, Is.EqualTo(account.Id));
+        }
+
+        [Test]
+        public async Task EditIncomeAccountAsync()
+        {
+            var repo = new Repository(applicationDbContext);
+            incomeService = new IncomeService(repo);
+
+            ApplicationUser user = new ApplicationUser()
+            {
+                Id = "ab110557-1dfa-4db5-8d63-e24cbf87ff2d",
+                FirstName = "user1",
+                LastName = "user1"
+            };
+
+            Account account = new Account()
+            {
+                Id = new Guid("25c81ad4-b580-43e9-a4b8-111e19053283"),
+                Amount = 50.20m,
+                Name = "Account",
+                ApplicationUserId = "ab110557-1dfa-4db5-8d63-e24cbf87ff2d",
+                ApplicationUser = user
+            };
+
+            Account accountEdit = new Account()
+            {
+                Id = new Guid("0289df0e-44de-4a17-a805-93d5e97bb88e"),
+                Amount = 30,
+                Name = "AccountEdit",
+                ApplicationUserId = "ab110557-1dfa-4db5-8d63-e24cbf87ff2d",
+                ApplicationUser = user
+            };
+
+            Income income = new Income()
+            {
+                Id = new Guid("f2712406-43b4-46df-90be-933e106fb91c"),
+                Amount = 20,
+                Description = "test",
+                Date = DateTime.UtcNow,
+                CategoryId = new Guid("302837e6-5dbc-4d24-ba17-8815c119c7e0"),
+                Account = account,
+                AccountId = account.Id,
+                ApplicationUser = user,
+                ApplicationUserId = user.Id,
+
+            };
+
+            await repo.AddAsync<Account>(account);
+            await repo.AddAsync<Account>(accountEdit);
+            await repo.AddAsync<Income>(income);
+            await repo.SaveChangesAsync();
+
+            EditIncomeViewModel editVM = new EditIncomeViewModel()
+            {
+                Id = income.Id,
+                Amount = income.Amount,
+                Description = income.Description,
+                Date = DateTime.UtcNow,
+                CategoryId = new Guid("302837e6-5dbc-4d24-ba17-8815c119c7e0"),
+                AccountId = accountEdit.Id,
+            };
+
+            await incomeService.EditAsync(editVM);
+
+            Assert.That(account.Amount, Is.EqualTo(30.20));
+            Assert.That(accountEdit.Amount, Is.EqualTo(50));
+           
+        }
+
+        [Test]
+        public async Task EditIncomeAccountAndAmountAsync()
+        {
+            var repo = new Repository(applicationDbContext);
+            incomeService = new IncomeService(repo);
+
+            ApplicationUser user = new ApplicationUser()
+            {
+                Id = "ab110557-1dfa-4db5-8d63-e24cbf87ff2d",
+                FirstName = "user1",
+                LastName = "user1"
+            };
+
+            Account account = new Account()
+            {
+                Id = new Guid("25c81ad4-b580-43e9-a4b8-111e19053283"),
+                Amount = 50.20m,
+                Name = "Account",
+                ApplicationUserId = "ab110557-1dfa-4db5-8d63-e24cbf87ff2d",
+                ApplicationUser = user
+            };
+
+            Account accountEdit = new Account()
+            {
+                Id = new Guid("0289df0e-44de-4a17-a805-93d5e97bb88e"),
+                Amount = 30,
+                Name = "AccountEdit",
+                ApplicationUserId = "ab110557-1dfa-4db5-8d63-e24cbf87ff2d",
+                ApplicationUser = user
+            };
+
+            Income income = new Income()
+            {
+                Id = new Guid("f2712406-43b4-46df-90be-933e106fb91c"),
+                Amount = 20,
+                Description = "test",
+                Date = DateTime.UtcNow,
+                CategoryId = new Guid("302837e6-5dbc-4d24-ba17-8815c119c7e0"),
+                Account = account,
+                AccountId = account.Id,
+                ApplicationUser = user,
+                ApplicationUserId = user.Id,
+
+            };
+
+            await repo.AddAsync<Account>(account);
+            await repo.AddAsync<Account>(accountEdit);
+            await repo.AddAsync<Income>(income);
+            await repo.SaveChangesAsync();
+
+            EditIncomeViewModel editVM = new EditIncomeViewModel()
+            {
+                Id = income.Id,
+                Amount = 10,
+                Description = income.Description,
+                Date = DateTime.UtcNow,
+                CategoryId = new Guid("302837e6-5dbc-4d24-ba17-8815c119c7e0"),
+                AccountId = accountEdit.Id,
+            };
+
+            await incomeService.EditAsync(editVM);
+
+            Assert.That(account.Amount, Is.EqualTo(30.20));
+            Assert.That(accountEdit.Amount, Is.EqualTo(40));
+            Assert.That(income.Amount, Is.EqualTo(10));
+
         }
 
         [TearDown]
