@@ -24,6 +24,7 @@ namespace MoneyManager.Core.Services
                 ApplicationUserId = i.ApplicationUserId
             }).ToListAsync();
         }
+
         public async Task<bool> AddAccountAsync(AddAccountViewModel model, string userId)
         {
             var accounts = await repo.AllReadonly<Account>().Where(x => x.ApplicationUserId == userId && x.IsActive).OrderBy(x => x.Name).ToListAsync();
@@ -48,6 +49,7 @@ namespace MoneyManager.Core.Services
             return false;
 
         }
+
         public async Task DeleteAsync(Guid id)
         {
             var account = await repo.GetByIdAsync<Account>(id);

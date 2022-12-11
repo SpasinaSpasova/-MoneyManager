@@ -347,8 +347,20 @@ namespace MoneyManager.UnitTests
             await incomeService.DeleteAsync(income.Id);
 
             Assert.That(repo.AllReadonly<Income>().Where(x => x.IsActive).Count<Income>(), Is.EqualTo(0));
-
+            Assert.That(income.IsActive, Is.False);
             Assert.That(account.Amount, Is.EqualTo(30.20));
+        }
+
+        [Test]
+        public async Task DeleteIncomeAsyncNot()
+        {
+            var repo = new Repository(applicationDbContext);
+            incomeService = new IncomeService(repo);
+
+            await incomeService.DeleteAsync(new Guid("f2712406-43b4-46df-90be-933e106fb91c"));
+
+            Assert.That(repo.AllReadonly<Income>().Where(x => x.IsActive).Count<Income>(), Is.EqualTo(0));
+
         }
 
         [Test]
