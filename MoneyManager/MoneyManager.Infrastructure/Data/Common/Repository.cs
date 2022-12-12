@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using MoneyManager.Infrastructure.Data;
 using System.Linq.Expressions;
 
 namespace MoneyManager.Infrastructure.Data.Common

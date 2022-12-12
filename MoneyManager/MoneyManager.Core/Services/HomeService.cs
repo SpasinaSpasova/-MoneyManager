@@ -76,9 +76,9 @@ namespace MoneyManager.Core.Services
 
         private void IncomesAndExpensesForWeek(string userId, ViewModel model)
         {
-            var incomesForWeek = repo.AllReadonly<Income>().Where(x => (x.IsActive) && (x.ApplicationUserId == userId) && (x.Date.Day <= DateTime.Today.Day || x.Date.Day > DateTime.Today.AddDays(-6).Day)).Sum(x => x.Amount);
+            var incomesForWeek = repo.AllReadonly<Income>().Where(x => (x.IsActive) && (x.ApplicationUserId == userId) && (x.Date.Day >= DateTime.Today.AddDays(-6).Day && x.Date.Day <= DateTime.Today.Day)).Sum(x => x.Amount);
 
-            var expenseForWeek = repo.AllReadonly<Expense>().Where(x => (x.IsActive) && (x.ApplicationUserId == userId) && (x.Date.Day <= DateTime.Today.Day || x.Date.Day > DateTime.Today.AddDays(-6).Day)).Sum(x => x.Amount);
+            var expenseForWeek = repo.AllReadonly<Expense>().Where(x => (x.IsActive) && (x.ApplicationUserId == userId) && (x.Date.Day >= DateTime.Today.AddDays(-6).Day && x.Date.Day <= DateTime.Today.Day)).Sum(x => x.Amount);
 
             model.IncomesAndExpensesForWeek = new IncomesAndExpensesForWeek();
             model.IncomesAndExpensesForWeek.Income = incomesForWeek;
