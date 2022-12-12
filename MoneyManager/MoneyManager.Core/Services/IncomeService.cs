@@ -74,15 +74,6 @@ namespace MoneyManager.Core.Services
             }).ToListAsync();
         }
 
-        private async Task IncrementAccountAmountAsync(Guid accountId, decimal increment)
-        {
-            var entity = await repo.GetByIdAsync<Account>(accountId);
-            entity.Amount += increment;
-
-            repo.Update<Account>(entity);
-
-            await repo.SaveChangesAsync();
-        }
 
         public async Task DeleteAsync(Guid id)
         {
@@ -179,6 +170,15 @@ namespace MoneyManager.Core.Services
             entity.Description = model.Description;
             entity.Date = model.Date;
             entity.CategoryId = model.CategoryId;
+
+            await repo.SaveChangesAsync();
+        }
+        private async Task IncrementAccountAmountAsync(Guid accountId, decimal increment)
+        {
+            var entity = await repo.GetByIdAsync<Account>(accountId);
+            entity.Amount += increment;
+
+            repo.Update<Account>(entity);
 
             await repo.SaveChangesAsync();
         }

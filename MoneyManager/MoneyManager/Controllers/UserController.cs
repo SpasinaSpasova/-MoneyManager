@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MoneyManager.Core.Models.User;
 using MoneyManager.Infrastructure.Data.Entities;
-using System.Security.Claims;
 
 namespace MoneyManager.Controllers
 {

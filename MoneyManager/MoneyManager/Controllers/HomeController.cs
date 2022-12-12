@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using MoneyManager.Core.Contracts;
-using MoneyManager.Core.Services;
 using MoneyManager.Models;
 using System.Diagnostics;
 using System.Security.Claims;

@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using MoneyManager.Core.Contracts;
 using MoneyManager.Core.Models.CategoryIncome;
-using MoneyManager.Core.Services;
 
 namespace MoneyManager.Areas.Admin.Controllers
 {
