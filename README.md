@@ -119,3 +119,10 @@ You don't have to do anything in particular to start the project, except to cons
 
 ## Database
 ![This is database image](https://github.com/SpasinaSpasova/MoneyManager/blob/main/Screenshots/Database.png)
+
+## Tests
+
+- NUnit 3.13.3
+- NUnit3TestAdapter 4.3.1
+- Moq 4.18.2
+- Microsoft.EntityFrameworkCore.InMemory 6.0.11
