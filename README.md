@@ -126,3 +126,4 @@ You don't have to do anything in particular to start the project, except to cons
 - NUnit3TestAdapter 4.3.1
 - Moq 4.18.2
 - Microsoft.EntityFrameworkCore.InMemory 6.0.11
+- coverlet.collector 3.2
