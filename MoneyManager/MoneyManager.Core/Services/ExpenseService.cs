@@ -106,7 +106,6 @@ namespace MoneyManager.Core.Services
             }
         }
 
-
         public async Task DeleteAsync(Guid id)
         {
             var expense = await repo.GetByIdAsync<Expense>(id);
@@ -190,6 +189,7 @@ namespace MoneyManager.Core.Services
 
             return true;
         }
+
         private async Task DecrementAccountAmountAsync(Guid accountId, decimal decrement)
         {
             var entity = await repo.GetByIdAsync<Account>(accountId);
