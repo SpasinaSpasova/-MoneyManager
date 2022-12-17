@@ -7,7 +7,7 @@ namespace MoneyManager.Core.Contracts
         Task<List<AccountViewModel>> GetAllByUserIdAsync(string userId);
         Task<bool> AddAccountAsync(AddAccountViewModel model, string userId);
         Task<EditAccountViewModel> GetForEditAsync(Guid id);
-        Task EditAsync(EditAccountViewModel model);
+        Task<bool> EditAsync(EditAccountViewModel model,string userId);
         Task DeleteAsync(Guid id);
     }
 }

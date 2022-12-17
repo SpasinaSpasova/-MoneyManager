@@ -268,6 +268,33 @@ namespace MoneyManager.UnitTests
 
             Assert.That(category.Name, Is.EqualTo(cat.Name));
         }
+        [Test]
+        public async Task EditAsyncNotSuccess()
+        {
+            var repo = new Repository(applicationDbContext);
+            categoryIncomeService = new CategoryIncomeService(repo);
+
+
+            CategoryIncome category = new CategoryIncome()
+            {
+                Id = new Guid("e2627a8d-2d33-475c-9f60-dfb40a76a854"),
+                Name = "cat1"
+            };
+
+            await repo.AddAsync<CategoryIncome>(category);
+
+            await repo.SaveChangesAsync();
+
+            EditCategoryIncomeViewModel cat = new EditCategoryIncomeViewModel()
+            {
+                Id = category.Id,
+                Name = "cat1"
+            };
+
+            var result= await categoryIncomeService.EditAsync(cat);
+
+            Assert.That(result, Is.False);
+        }
 
         [TearDown]
         public void TearDown()

@@ -331,10 +331,47 @@ namespace MoneyManager.UnitTests
                 Amount = 10
             };
 
-           await accountService.EditAsync(edit);
+           await accountService.EditAsync(edit,user.Id);
 
             Assert.That(account.Name, Is.EqualTo(edit.Name));
             Assert.That(account.Amount, Is.EqualTo(edit.Amount));
+        }
+
+        [Test]
+        public async Task EditAsyncNotSuccess()
+        {
+            var repo = new Repository(applicationDbContext);
+            accountService = new AccountService(repo);
+
+            ApplicationUser user = new ApplicationUser()
+            {
+                Id = "ab110557-1dfa-4db5-8d63-e24cbf87ff2d",
+                FirstName = "user1",
+                LastName = "user1"
+            };
+
+            Account account = new Account()
+            {
+                Id = new Guid("e2627a8d-2d33-475c-9f60-dfb40a76a854"),
+                Name = "addAccount",
+                Amount = 50.20m,
+                ApplicationUserId = user.Id
+            };
+
+            await repo.AddAsync<Account>(account);
+            await repo.AddAsync<ApplicationUser>(user);
+            await repo.SaveChangesAsync();
+
+            EditAccountViewModel edit = new EditAccountViewModel()
+            {
+                Id = account.Id,
+                Name = "AddAccount",
+                Amount = 10
+            };
+
+           var result= await accountService.EditAsync(edit, user.Id);
+
+            Assert.That(result, Is.False);
         }
 
         [TearDown]

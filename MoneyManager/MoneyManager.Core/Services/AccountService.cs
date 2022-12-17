@@ -83,14 +83,22 @@ namespace MoneyManager.Core.Services
             }
         }
 
-        public async Task EditAsync(EditAccountViewModel model)
+        public async Task<bool> EditAsync(EditAccountViewModel model,string userId)
         {
             var entity = await repo.GetByIdAsync<Account>(model.Id);
+            var allAccounts = await repo.AllReadonly<Account>().Where(x => x.IsActive && x.ApplicationUserId==userId).ToListAsync();
 
-            entity.Amount = model.Amount;
-            entity.Name = model.Name;
+            if (!allAccounts.Any(x => x.Name.ToLower() == model.Name.ToLower()))
+            {
+                entity.Amount = model.Amount;
+                entity.Name = model.Name;
 
-            await repo.SaveChangesAsync();
+                await repo.SaveChangesAsync();
+
+                return true;
+            }
+
+            return false;
         }
     }
 }

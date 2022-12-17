@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using MoneyManager.Core.Contracts;
 using MoneyManager.Core.Models.CategoryIncome;
 using MoneyManager.Infrastructure.Data.Entities;
+using System.Security.Cryptography.X509Certificates;
 
 namespace MoneyManager.Core.Services
 {
@@ -16,7 +17,7 @@ namespace MoneyManager.Core.Services
 
         public async Task<bool> AddCategoryAsync(AddCategoryIncomeViewModel model)
         {
-            var allCategories = await repo.AllReadonly<CategoryIncome>().Where(x=>x.IsActive).ToListAsync();
+            var allCategories = await repo.AllReadonly<CategoryIncome>().Where(x => x.IsActive).ToListAsync();
 
             if (!allCategories.Any(x => x.Name.ToLower() == model.Name.ToLower()))
             {
@@ -35,19 +36,26 @@ namespace MoneyManager.Core.Services
             return false;
         }
 
-        public async Task EditAsync(EditCategoryIncomeViewModel model)
+        public async Task<bool> EditAsync(EditCategoryIncomeViewModel model)
         {
             var entity = await repo.GetByIdAsync<CategoryIncome>(model.Id);
+            var allCategories = await repo.AllReadonly<CategoryIncome>().Where(x => x.IsActive).ToListAsync();
 
+            if (!allCategories.Any(x => x.Name.ToLower() == model.Name.ToLower()))
+            {
 
-            entity.Name = model.Name;
+                entity.Name = model.Name;
+                await repo.SaveChangesAsync();
 
-            await repo.SaveChangesAsync();
+                return true;
+            }
+
+            return false;
         }
 
         public async Task<List<CategoryIncomeViewModel>> GetAllAsync()
         {
-            return await repo.AllReadonly<CategoryIncome>().OrderBy(x => x.Name).Where(x=>x.IsActive==true).Select(i => new CategoryIncomeViewModel()
+            return await repo.AllReadonly<CategoryIncome>().OrderBy(x => x.Name).Where(x => x.IsActive == true).Select(i => new CategoryIncomeViewModel()
             {
                 Id = i.Id,
                 Name = i.Name

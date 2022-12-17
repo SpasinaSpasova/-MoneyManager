@@ -7,7 +7,7 @@ namespace MoneyManager.Core.Contracts
         Task<List<CategoryIncomeViewModel>> GetAllAsync();
         Task<bool> AddCategoryAsync(AddCategoryIncomeViewModel model);
         Task<EditCategoryIncomeViewModel> GetForEditAsync(Guid id);
-        Task EditAsync(EditCategoryIncomeViewModel model);
+        Task<bool> EditAsync(EditCategoryIncomeViewModel model);
         Task DeleteAsync(Guid id);
     }
 }

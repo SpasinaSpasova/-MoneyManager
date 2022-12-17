@@ -45,14 +45,20 @@ namespace MoneyManager.Core.Services
             }
         }
 
-        public async Task EditAsync(EditCategoryExpenseViewModel model)
+        public async Task<bool> EditAsync(EditCategoryExpenseViewModel model)
         {
             var entity = await repo.GetByIdAsync<CategoryExpense>(model.Id);
+            var allCategories = await repo.AllReadonly<CategoryExpense>().Where(x => x.IsActive).ToListAsync();
 
+            if (!allCategories.Any(x => x.Name.ToLower() == model.Name.ToLower()))
+            {
 
-            entity.Name = model.Name;
+                entity.Name = model.Name;
+                await repo.SaveChangesAsync();
 
-            await repo.SaveChangesAsync();
+                return true;
+            }
+            return false;
         }
 
         public async Task<List<CategoryExpenseViewModel>> GetAllAsync()

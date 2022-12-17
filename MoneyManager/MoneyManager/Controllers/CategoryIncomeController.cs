@@ -87,9 +87,13 @@ namespace MoneyManager.Controllers
                 return View(model);
             }
 
-            await categoryIncomeService.EditAsync(model);
+            var result = await categoryIncomeService.EditAsync(model);
 
-            TempData["message"] = "You have successfully edited the income category!";
+            if (result)
+            {
+                TempData["message"] = "You have successfully edited the income category!";
+
+            }
 
             return RedirectToAction(nameof(All));
 

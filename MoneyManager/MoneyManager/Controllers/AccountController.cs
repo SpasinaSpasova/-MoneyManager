@@ -106,9 +106,16 @@ namespace MoneyManager.Controllers
                 return View(model);
             }
 
-            await accountService.EditAsync(model);
+            var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-            TempData["message"] = "You have successfully edited the account!";
+            var result = await accountService.EditAsync(model, currentUserId);
+
+            if (result)
+            {
+                TempData["message"] = "You have successfully edited the account!";
+
+            }
+
 
             return RedirectToAction(nameof(All));
 
