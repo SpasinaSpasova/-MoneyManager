@@ -130,7 +130,6 @@ You don't have to do anything in particular to start the project, except to cons
 
 ## Security
 
-Prevent
 - SQL injection
 - XSS
 - CSRF
