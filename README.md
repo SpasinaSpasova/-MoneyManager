@@ -127,3 +127,10 @@ You don't have to do anything in particular to start the project, except to cons
 - Moq 4.18.2
 - Microsoft.EntityFrameworkCore.InMemory 6.0.11
 - coverlet.collector 3.2
+
+## Security
+
+Prevent
+- SQL injection
+- XSS
+- CSRF
