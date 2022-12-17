@@ -98,9 +98,14 @@ namespace MoneyManager.Areas.Admin.Controllers
                 return View(model);
             }
 
-            await categoryExpenseService.EditAsync(model);
+            var result = await categoryExpenseService.EditAsync(model);
 
-            TempData["message"] = "You have successfully edited the expense category!";
+            if (result)
+            {
+
+                TempData["message"] = "You have successfully edited the expense category!";
+            }
+
 
             return RedirectToAction(nameof(All));
 
